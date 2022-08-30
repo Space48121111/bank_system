@@ -1,0 +1,43 @@
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, httpResponseRedirect
+from django.views import generic
+from django.urls import reverse
+from django.utils import timezone
+
+from .models import Customer, Balance
+
+# Create your views here.
+'''
+def index(request):
+    return HttpResponse("Hello world.")
+'''
+
+class IndexView(generic.ListView):
+    template_name = 'perseverance/index.html'
+    context_object_name = 'latest_deposit_list'
+    def get_queryset(self):
+        return Perseverance.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+
+def transaction(req, customer_id):
+    customer = get_object_or_404(Customer, pk=customer_id)
+    try:
+        # todo
+        withdrawn_balance = customer.balance.get(pk=req.POST['balance'])
+    except (KeyError, Balance.DoesNotExist):
+        return render(req, 'perseverance/', ('balance': balance, 'error_message': "Please withdraw or make a deposit.", ))
+    else:
+        # todo
+        withdrawn_balance.defaults += input
+        withdrawn_balance.save()
+        return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
+
+class AccountView(generic.DetailView):
+    model = Customer
+    template_name = 'perseverance/account.html'
+
+
+
+
+
+
+# end
