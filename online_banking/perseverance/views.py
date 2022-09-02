@@ -27,7 +27,6 @@ class DetailView(generic.DetailView):
 
 def transaction(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
-    total_balance = 0
     try:
         withdrawn_balance = customer.balance_set.get(pk=req.POST['balance'])
         amount = req.POST['amount']

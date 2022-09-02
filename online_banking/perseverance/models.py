@@ -35,5 +35,13 @@ class Balance(models.Model):
     class Meta:
         verbose_name_plural = 'Balance'
 
+    def total_balance(self):
+        total_balance = 0
+        if balance_text == 'Withdraw':
+            total_balance -= self.defaults
+        else:
+            total_balance += self.defaults
+        print(total_balance)
+        return total_balance
 
 # end
