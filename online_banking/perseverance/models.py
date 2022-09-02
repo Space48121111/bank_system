@@ -24,9 +24,13 @@ class Customer(models.Model):
 
 class Balance(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    defaults = models.IntegerField(default=-999,999,999)
+    balance_text = models.CharField(max_length=200)
+    defaults = models.IntegerField(default=-999999999)
 
     def __str__(self):
-        return self.balance
+        return self.balance_text
     class Meta:
         verbose_name_plural = 'Balance'
+
+
+# end

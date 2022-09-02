@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, httpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse
 from django.utils import timezone
@@ -16,18 +16,25 @@ class IndexView(generic.ListView):
     template_name = 'perseverance/index.html'
     context_object_name = 'latest_deposit_list'
     def get_queryset(self):
-        return Perseverance.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+        return Customer.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
+
+class DetailView(generic.DetailView):
+    model = Customer
+    template_name = 'perseverance/detail.html'
+
+    def get_queryset(self):
+        return Customer.objects.filter(pub_date__lte=timezone.now())
 
 def transaction(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     try:
         # todo
-        withdrawn_balance = customer.balance.get(pk=req.POST['balance'])
+        withdrawn_balance = customer.balance_set.get(pk=req.POST['balance'])
     except (KeyError, Balance.DoesNotExist):
-        return render(req, 'perseverance/', ('balance': balance, 'error_message': "Please withdraw or make a deposit.", ))
+        return render(req, 'perseverance/detail.html', {'customer': customer, 'error_message': "Please withdraw or make a deposit.", })
     else:
         # todo
-        withdrawn_balance.defaults += input
+        withdrawn_balance.defaults += withdrawn_balance
         withdrawn_balance.save()
         return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
 

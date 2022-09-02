@@ -4,11 +4,21 @@
     <meta charset="utf-8">
     <title>Perseverance Bank</title>
     {% load static %}
-    <link rel="stylesheet" href="/css/master.css">
+    <link rel="stylesheet" href="{% static 'perseverance/style.css'%}">
   </head>
   <body>
     <h1>Perseverance Bank</h1>
-    <p>Google the sh*t out of it.</p>
+    {% if latest_customer_list %}
+      <ul>
+        {% for customer in latest_deposit_list %}
+          <li> <a href="{% url 'perseverance:detail' customer.id %}">{{customer.customer_text}}</a> </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No customers yet, hang in there.</p>
+    {% endif %}
+    <br>
+    <p>Google the sh*t out of it.</p><br>
     <p>Thanks for doing business with us.</p>
   </body>
 </html>
