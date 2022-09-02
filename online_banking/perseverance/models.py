@@ -23,6 +23,7 @@ class Customer(models.Model):
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 class Balance(models.Model):
+    # create balance_set using foreignkey 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     balance_text = models.CharField(max_length=200)
     defaults = models.IntegerField(default=-999999999.999999999)
