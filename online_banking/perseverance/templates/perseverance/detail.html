@@ -12,7 +12,7 @@
         {% if error_message %}
           <p><strong> {{ error_message }} </strong> </p>
         {% endif %}
-        <p>I'd like to Add/deduct (amount) from my account: </p>
+        <p>I'd like to add/deduct (amount) from my account: </p>
         {% for balance in customer.balance_set.all %}
           <input type="radio" name="balance"
           id='balance{{ forloop.counter }}'

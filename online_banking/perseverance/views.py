@@ -27,16 +27,17 @@ class DetailView(generic.DetailView):
 
 def transaction(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
+    total_balance = 0
     try:
-        # todo
         withdrawn_balance = customer.balance_set.get(pk=req.POST['balance'])
+        amount = req.POST['amount']
     except (KeyError, Balance.DoesNotExist):
         return render(req, 'perseverance/detail.html', {'customer': customer, 'error_message': "Please withdraw or make a deposit.", })
     else:
-        # todo
-        withdrawn_balance.defaults += 1000
+        withdrawn_balance.defaults += float(amount)
         withdrawn_balance.save()
-        return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
+
+    return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
 
 class AccountView(generic.DetailView):
     model = Customer
