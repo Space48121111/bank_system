@@ -8,7 +8,7 @@
   </head>
   <body>
     <h1>Perseverance Bank</h1>
-    {% if latest_customer_list %}
+    {% if latest_deposit_list %}
       <ul>
         {% for customer in latest_deposit_list %}
           <li> <a href="{% url 'perseverance:detail' customer.id %}">{{customer.customer_text}}</a> </li>

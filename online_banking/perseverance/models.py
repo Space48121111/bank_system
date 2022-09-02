@@ -25,7 +25,7 @@ class Customer(models.Model):
 class Balance(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     balance_text = models.CharField(max_length=200)
-    defaults = models.IntegerField(default=-999999999)
+    defaults = models.IntegerField(default=-999999999.999999999)
 
     def __str__(self):
         return self.balance_text
