@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views import generic
 from django.urls import reverse
 from django.utils import timezone
+
 from .models import Customer, Balance
 
 # Create your views here.
