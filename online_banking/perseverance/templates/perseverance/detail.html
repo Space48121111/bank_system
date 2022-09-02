@@ -2,9 +2,27 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Perseverance Bank</title>
   </head>
   <body>
-    
+    <form action="{% url 'perseverance:transaction' customer.id %}" method="post">
+      {% csrf_token %}
+      <fieldset>
+        <legend> <h1>{{ customer.customer_text }}</h1></legend>
+        {% if error_message %}
+          <p><strong> {{ error_message }} </strong> </p>
+        {% endif %}
+        <p>I'd like to Add/deduct (amount) from my account: </p>
+        {% for balance in customer.balance_set.all %}
+          <input type="radio" name="balance"
+          id='balance{{ forloop.counter }}'
+          value="{{ balance.id }}">
+          <label for="balance{{ forloop.counter }}">
+            {{ balance.balance_text }} $ </label>
+          <input type="number" id="amount" name="amount" value="1000.00"><br>
+        {% endfor %}
+      </fieldset>
+      <input type="submit" name="submit" value="Confirm">
+    </form>
   </body>
 </html>

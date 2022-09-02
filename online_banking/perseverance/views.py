@@ -34,7 +34,7 @@ def transaction(req, customer_id):
         return render(req, 'perseverance/detail.html', {'customer': customer, 'error_message': "Please withdraw or make a deposit.", })
     else:
         # todo
-        withdrawn_balance += withdrawn_balance.defaults
+        withdrawn_balance.defaults += 1000
         withdrawn_balance.save()
         return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
 

@@ -1,0 +1,23 @@
+? How does sqlite work under the hood
+# python manage.py sqlmigrate perseverance 0001
+
+? Create users
+# python manage.py shell
+>> from perseverance.models import Customer, Balance
+>> from django.utils imort timezone
+>> c1 = Customer(customer_text='Bob', pub_date=timezone.now())
+>> c1.save()
+>> c1.id
+>> c1.deposited_recently()
+>> c2 = Customer(customer_text='Anne', pub_date=timezone.now())
+>> c2.save()
+>> c2.id
+>> Customer.objects.all()
+
+? Make deposit
+>> c = Customer.objects.get(pk=1)
+>> c.balance_set.create(balance_text='Withdraw', defaults=8000)
+>> c.balance_set.create(balance_text='Deposit', defaults=1000)
+>> c.balance_set.all()
+>> d = c.balance_set.filter(balance_text__startswith='Deposit')
+>> d.delete()
