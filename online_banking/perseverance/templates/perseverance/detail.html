@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Perseverance Bank</title>
-  </head>
-  <body>
+{% extends "./index.html" %}
+  {% block content %}
     <form action="{% url 'perseverance:transaction' customer.id %}" method="post">
       {% csrf_token %}
       <fieldset>
@@ -31,5 +26,7 @@
       </fieldset>
       <input type="submit" name="submit" value="Confirm">
     </form>
-  </body>
-</html>
+    <br>
+    <a href="{% url 'perseverance:index' %}">Go back to main page? >></a>
+
+{% endblock content%}

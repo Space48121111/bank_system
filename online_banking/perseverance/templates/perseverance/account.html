@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends "./index.html" %}
+  {% block content %}
     <h1>{{ customer.customer_text }}  </h1>
     <p>You've been doing business with us since {{ customer.pub_date }}</p><br>
 
@@ -14,5 +9,7 @@
     {% endfor %}
     <br>
     <a href="{% url 'perseverance:detail' customer.id %}">Make another transaction? </a>
-  </body>
-</html>
+    <br>
+    <a href="{% url 'perseverance:index' %}">Go back to main page? >></a>
+
+{% endblock content%}
