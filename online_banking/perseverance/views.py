@@ -28,12 +28,33 @@ class DetailView(generic.DetailView):
 def transaction(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     try:
+        '''
+        # name="balance" id='balance{{ forloop.counter }}' value="{{ balance.id }}"
         withdrawn_balance = customer.balance_set.get(pk=req.POST['balance'])
-        amount = req.POST['amount']
+        # id="amount{{ forloop.counter }}" name="amount"
+        '''
+        option = req.POST['balance']
+        # id='w-bal' name="balance"
+        # id="w-amt" name="withdrawn-amount"
+        withdrawn_balance = customer.balance_set.get(pk=option)
+        w_amt = req.POST['withdrawn-amount']
+        d_amt = req.POST['deposited-amount']
     except (KeyError, Balance.DoesNotExist):
         return render(req, 'perseverance/detail.html', {'customer': customer, 'error_message': "Please withdraw or make a deposit.", })
     else:
-        withdrawn_balance.defaults += float(amount)
+        '''
+        if balance_text == 'Withdraw':
+            withdrawn_balance -= float(amount)
+        if balance_text == 'Deposit':
+            withdrawn_balance += withdrawn_balance
+        print(total_balance)
+        '''
+        if option == 'Withdraw':
+            withdrawn_balance.defaults -= float(w_amt)
+        if option == 'Deposit':
+            withdrawn_balance.defaults += float(d_amt)
+        print(withdrawn_balance)
+
         withdrawn_balance.save()
 
     return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
