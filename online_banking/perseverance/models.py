@@ -31,7 +31,7 @@ class Balance(models.Model):
     defaults = models.FloatField(default=-999999999.999999999)
 
     def __str__(self):
-        return self.balance_text, self.defaults
+        return self.balance_text
     class Meta:
         verbose_name_plural = 'Balance'
 

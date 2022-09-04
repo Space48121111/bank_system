@@ -7,10 +7,11 @@
   <body>
     <h1>{{ customer.customer_text }}  </h1>
     <p>You've been doing business with us since {{ customer.pub_date }}</p><br>
+
     {% for balance in customer.balance_set.all %}
-      <p>Your {{ balance.balance_text }}ing amount is: <strong>$ {{ balance.defaults }} </strong> defaults </p>
+    <!--   <p>Your {{ balance.balance_text }}ing amount is: <strong>$ {{ balance.defaults }} </strong> defaults </p>-->
+        <p>Your total balance is: <strong>$ {{ balance.defaults }} </strong> defaults</p>
     {% endfor %}
-    <p>Your total balance is: {{ customer.total_balance }}</p>
     <br>
     <a href="{% url 'perseverance:detail' customer.id %}">Make another transaction? </a>
   </body>

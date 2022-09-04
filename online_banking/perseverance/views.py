@@ -33,10 +33,11 @@ def transaction(req, customer_id):
         withdrawn_balance = customer.balance_set.get(pk=req.POST['balance'])
         # id="amount{{ forloop.counter }}" name="amount"
         '''
+
         option = req.POST['balance']
-        # id='w-bal' name="balance"
+        # id='w-bal' name="balance" value="Withdraw"
         # id="w-amt" name="withdrawn-amount"
-        withdrawn_balance = customer.balance_set.get(pk=option)
+        withdrawn_balance = customer.balance_set.get(balance_text__startswith=option)
         w_amt = req.POST['withdrawn-amount']
         d_amt = req.POST['deposited-amount']
     except (KeyError, Balance.DoesNotExist):
@@ -46,14 +47,13 @@ def transaction(req, customer_id):
         if balance_text == 'Withdraw':
             withdrawn_balance -= float(amount)
         if balance_text == 'Deposit':
-            withdrawn_balance += withdrawn_balance
+            withdrawn_balance += float(amount)
         print(total_balance)
         '''
         if option == 'Withdraw':
             withdrawn_balance.defaults -= float(w_amt)
         if option == 'Deposit':
             withdrawn_balance.defaults += float(d_amt)
-        print(withdrawn_balance)
 
         withdrawn_balance.save()
 

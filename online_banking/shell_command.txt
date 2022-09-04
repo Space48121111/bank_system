@@ -4,6 +4,7 @@
 ? Create users
 # python manage.py shell
 >> from perseverance.models import Customer, Balance
+
 >> from django.utils imort timezone
 >> c1 = Customer(customer_text='Bob', pub_date=timezone.now())
 >> c1.save()
@@ -21,3 +22,11 @@
 >> c.balance_set.all()
 >> d = c.balance_set.filter(balance_text__startswith='Deposit')
 >> d.delete()
+>> a = Customer(pk=1).balance_set.get(pk=1)
+>> a1 = Customer(pk=1).balance_set.get(balance_text__startswith='Withdraw').defaults
+>> print(a1)
+
+
+
+
+// end
