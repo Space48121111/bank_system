@@ -29,15 +29,17 @@ def transaction(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     try:
         option = req.POST['balance']
-        # id="amount{{ forloop.counter }}" name="amount"
         amount = req.POST['amount']
+        print(amount)
         withdrawn_balance = customer.balance_set.get(pk=1)
         deposited_balance = customer.balance_set.get(pk=6)
         total_balance = customer.balance_set.get(pk=8)
 
         # name="balance" id='balance{{ forloop.counter }}' value="{{ balance.id }}"
+        # id="amount{{ forloop.counter }}" name="amount" value= "{{ balance.defaults }}"
         if option == '8':
-            total_balance.defaults += float(amount)
+            total_balance.defaults = float(amount)
+            total_balance.save()
             print('8', total_balance.defaults)
         else:
             if option == '1':
@@ -49,7 +51,7 @@ def transaction(req, customer_id):
                 deposited_balance.save()
                 print('6', deposited_balance.defaults)
 
-        total_balance.defaults += (deposited_balance.defaults - withdrawn_balance.defaults)
+        total_balance.defaults = (deposited_balance.defaults - withdrawn_balance.defaults)
         total_balance.save()
         print(total_balance.defaults)
 

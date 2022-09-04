@@ -1,6 +1,10 @@
 ? How does sqlite work under the hood
 #
-python manage.py sqlmigrate perseverance 0003
+python manage.py sqlmigrate perseverance 0001
+>>
+for p in Customer.objects.raw('SELECT * FROM perseverance_customer'):
+for p in Balance.objects.raw('SELECT * FROM perseverance_balance'):
+     print(p)
 
 ? Create users
 #
@@ -29,14 +33,17 @@ Customer(pk=1).balance_set.create(balance_text='Total', defaults=0)
 >>
 Customer(pk=1).balance_set.all()
 >>
-a = Customer(pk=1).balance_set.get(pk=8).defaults
+Customer(pk=1).balance_set.get(pk=8).defaults
 >>
-a = Customer(pk=1).balance_set.get(balance_text__startswith='total_balance').defaults
+Customer(pk=1).balance_set.get(balance_text__startswith='total_balance').defaults
 
-Customer(pk=1).balance_set.get(pk=8).update(defaults = -18994.0)
-a = Customer(pk=1).balance_set.get(pk=1).defaults
-b = Customer(pk=1).balance_set.get(pk=6).defaults
+s = Customer(pk=1).balance_set.get(pk=8)
+diff = Customer(pk=1).balance_set.get(pk=6).defaults - Customer(pk=1).balance_set.get(pk=1).defaults
+s.defaults = diff
+s.save()
+print(diff, s.defaults)
 
+Customer(pk=1).balance_set.get(pk=8).update(balance_text='Withdraw', defaults=8000)
 
 
 
