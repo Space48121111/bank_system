@@ -28,34 +28,34 @@ class DetailView(generic.DetailView):
 def transaction(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     try:
-        '''
-        # name="balance" id='balance{{ forloop.counter }}' value="{{ balance.id }}"
-        withdrawn_balance = customer.balance_set.get(pk=req.POST['balance'])
-        # id="amount{{ forloop.counter }}" name="amount"
-        '''
-
         option = req.POST['balance']
-        # id='w-bal' name="balance" value="Withdraw"
-        # id="w-amt" name="withdrawn-amount"
-        withdrawn_balance = customer.balance_set.get(balance_text__startswith=option)
-        w_amt = req.POST['withdrawn-amount']
-        d_amt = req.POST['deposited-amount']
+        # id="amount{{ forloop.counter }}" name="amount"
+        amount = req.POST['amount']
+        withdrawn_balance = customer.balance_set.get(pk=1)
+        deposited_balance = customer.balance_set.get(pk=6)
+        total_balance = customer.balance_set.get(pk=8)
+
+        # name="balance" id='balance{{ forloop.counter }}' value="{{ balance.id }}"
+        if option == '8':
+            total_balance.defaults += float(amount)
+            print('8', total_balance.defaults)
+        else:
+            if option == '1':
+                withdrawn_balance.defaults += float(amount)
+                withdrawn_balance.save()
+                print('1', withdrawn_balance.defaults)
+            if option == '6':
+                deposited_balance.defaults += float(amount)
+                deposited_balance.save()
+                print('6', deposited_balance.defaults)
+
+        total_balance.defaults += (deposited_balance.defaults - withdrawn_balance.defaults)
+        total_balance.save()
+        print(total_balance.defaults)
+
     except (KeyError, Balance.DoesNotExist):
         return render(req, 'perseverance/detail.html', {'customer': customer, 'error_message': "Please withdraw or make a deposit.", })
-    else:
-        '''
-        if balance_text == 'Withdraw':
-            withdrawn_balance -= float(amount)
-        if balance_text == 'Deposit':
-            withdrawn_balance += float(amount)
-        print(total_balance)
-        '''
-        if option == 'Withdraw':
-            withdrawn_balance.defaults -= float(w_amt)
-        if option == 'Deposit':
-            withdrawn_balance.defaults += float(d_amt)
 
-        withdrawn_balance.save()
 
     return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
 

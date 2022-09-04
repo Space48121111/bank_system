@@ -7,22 +7,16 @@
         {% if error_message %}
           <p><strong> {{ error_message }} </strong> </p>
         {% endif %}
-        <p>I'd like to add/deduct (amount) from my account: </p>
+        <p>I'd like to add/deduct/alter (amount) from my account: </p>
 
-        <!-- {% for balance in customer.balance_set.all %}
+        {% for balance in customer.balance_set.all %}
           <input type="radio" name="balance"
           id='balance{{ forloop.counter }}' value="{{ balance.id }}">
           <label for="balance{{ forloop.counter }}"> {{ balance.balance_text }} $ </label>
           <input type="number" id="amount{{ forloop.counter }}" name="amount" value="1000.00"><br>
-        {% endfor %} -->
+        {% endfor %}
 
-      <input type="radio" id='w-bal' name="balance" value="Withdraw">
-      <label for="balance"> Withdraw $ </label>
-      <input type="number" id="w-amt" name="withdrawn-amount" value="1000.00"><br>
 
-      <input type="radio" id='d-bal' name="balance" value="Deposit">
-      <label for="balance"> Deposit $ </label>
-      <input type="number" id="d-amt" name="deposited-amount" value="1000.00"><br>
       </fieldset>
       <input type="submit" name="submit" value="Confirm">
     </form>

@@ -1,9 +1,12 @@
 ? How does sqlite work under the hood
-# python manage.py sqlmigrate perseverance 0003
+#
+python manage.py sqlmigrate perseverance 0003
 
 ? Create users
-# python manage.py shell
->> from perseverance.models import Customer, Balance
+#
+python manage.py shell
+>>
+from perseverance.models import Customer, Balance
 
 >> from django.utils imort timezone
 >> c1 = Customer(customer_text='Bob', pub_date=timezone.now())
@@ -16,15 +19,25 @@
 >> Customer.objects.all()
 
 ? Create object instance balance
->> c = Customer.objects.get(pk=1)
+>>
+c = Customer.objects.get(pk=1)
 >> c.balance_set.create(balance_text='Withdraw', defaults=8000)
->> c.balance_set.create(balance_text='Deposit', defaults=1000)
->> c.balance_set.all()
+>>
+Customer(pk=1).balance_set.create(balance_text='Total', defaults=0)
 >> d = c.balance_set.filter(balance_text__startswith='Deposit')
 >> d.delete()
->> a = Customer(pk=1).balance_set.get(pk=1)
->> a1 = Customer(pk=1).balance_set.get(balance_text__startswith='Withdraw').defaults
->> print(a1)
+>>
+Customer(pk=1).balance_set.all()
+>>
+a = Customer(pk=1).balance_set.get(pk=8).defaults
+>>
+a = Customer(pk=1).balance_set.get(balance_text__startswith='total_balance').defaults
+
+Customer(pk=1).balance_set.get(pk=8).update(defaults = -18994.0)
+a = Customer(pk=1).balance_set.get(pk=1).defaults
+b = Customer(pk=1).balance_set.get(pk=6).defaults
+
+
 
 
 
