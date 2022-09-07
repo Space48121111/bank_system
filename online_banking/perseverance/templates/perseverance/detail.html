@@ -1,6 +1,6 @@
 {% extends "./index.html" %}
   {% block content %}
-    <form action="{% url 'perseverance:transaction' customer.id %}" method="post">
+    <form action="{% url 'perseverance:detail' customer.id %}" method="post">
       {% csrf_token %}
       <fieldset>
         <legend> <h1>{{ customer.customer_text }}</h1></legend>
@@ -8,19 +8,16 @@
           <p><strong> {{ error_message }} </strong> </p>
         {% endif %}
         <p>I'd like to add/deduct (amount) from my account: </p>
-        <p>todo: total </p>
-
-        {% for bal in customer.balance_set.all %}
-          <input type="radio" name="balance"
-          id='balance{{ forloop.counter }}' value="{{ bal.id }}">
-          <label for="balance{{ forloop.counter }}"> {{ bal.balance_text }} $ </label>
-          <input type="number" id="amount{{ forloop.counter }}" name="amount" value= "{{ bal.defaults }}"><br>
-        {% endfor %}
-
+          {% for bal in customer.balance_set.all %}
+            <input type="radio" name="balance"
+            id='balance{{ forloop.counter }}' value="{{ bal.id }}">
+            <label for="balance{{ forloop.counter }}"> {{ bal.balance_text }} $ </label>
+            <input type="number" id="amount{{ forloop.counter }}" name="amount" value= "1000.00"><br>
+          {% endfor %}
       </fieldset>
-      <input type="submit" name="submit" value="Confirm">
+      <input type="submit" value="Confirm" style="background-color: navy; color: white;">
     </form>
     <br>
     <a href="{% url 'perseverance:index' %}">Go back to main page? >></a>
 
-{% endblock content%}
+  {% endblock content%}

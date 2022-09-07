@@ -1,0 +1,25 @@
+{% extends "./index.html" %}
+  {% block content %}
+      <form class="" action="{% url 'perseverance:transaction' customer.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+          <legend><h1>{{ customer.customer_text }}</h1></legend>
+          {% if error_message %}
+            <p><strong>{{ error_message }}</strong></p>
+          {% endif %}
+          <p>I'd like to add/deduct(amount) from my account: </p>
+          <input type="radio" name="balance" value="w_bal">
+          <label for="w_amt">Withdraw $ </label>
+          <input type="number" name="w_amt" value="0.00"><br><br><br>
+
+          <input type="radio" name="balance" value="d_bal">
+          <label for="d_amt">Deposit $ </label>
+          <input type="number" name="d_amt" value="0.00"><br><br><br>
+
+          <input type="submit" value="Confirm" style="background-color: navy; color: white;">
+
+        </fieldset>
+      </form>
+      <br>
+      <a href="{% url 'perseverance:index' %}">Go back to main page? >></a>
+  {% endblock content %}

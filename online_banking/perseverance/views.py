@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from .models import Customer, Balance
-
+from .forms import amountForm
 # Create your views here.
 '''
 def index(request):
@@ -18,6 +18,56 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Customer.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
+class TransactionView(generic.DetailView):
+    model = Customer
+    template_name = 'perseverance/transaction.html'
+
+    def get_queryset(self):
+        return Customer.objects.filter(pub_date__lte=timezone.now())
+
+def transaction(req, customer_id):
+    customer = get_object_or_404(Customer, pk=customer_id)
+    withdrawn_balance = customer.balance_set.get(pk=1)
+    deposited_balance = customer.balance_set.get(pk=6)
+    total_balance = customer.balance_set.get(pk=8)
+
+    if req.method == 'POST':
+        # only need the name from the html
+        # <input type="radio" name="balance" value="w_bal">
+        # <input type="number" name="w_amt" value="0"><br><br><br>
+        form = amountForm(req.POST)
+        if form.is_valid():
+            w_amt = form.cleaned_data['w_amt']
+            d_amt = form.cleaned_data['d_amt']
+            option = req.POST['balance']
+            print(option)
+            if option == 'w_bal':
+                withdrawn_balance.defaults = w_amt
+                withdrawn_balance.save()
+            if option == 'd_bal':
+                deposited_balance.defaults = d_amt
+            total_balance.defaults = (deposited_balance.defaults - withdrawn_balance.defaults)
+            deposited_balance.save()
+            total_balance.save()
+            return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
+    else:
+        form = amountForm()
+
+    # ? not getting executed somehow
+    context = {
+        'form': form,
+        'withdrawn_balance': withdrawn_balance,
+    }
+    # Nothing printed
+    print(context)
+
+    return render(req, 'perseverance/account.html', context)
+
+class AccountView(generic.DetailView):
+    model = Customer
+    template_name = 'perseverance/account.html'
+
+'''
 class DetailView(generic.DetailView):
     model = Customer
     template_name = 'perseverance/detail.html'
@@ -25,7 +75,7 @@ class DetailView(generic.DetailView):
     def get_queryset(self):
         return Customer.objects.filter(pub_date__lte=timezone.now())
 
-def transaction(req, customer_id):
+def detail(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     try:
         option = req.POST['balance']
@@ -58,14 +108,9 @@ def transaction(req, customer_id):
     except (KeyError, Balance.DoesNotExist):
         return render(req, 'perseverance/detail.html', {'customer': customer, 'error_message': "Please withdraw or make a deposit.", })
 
-
     return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
 
-class AccountView(generic.DetailView):
-    model = Customer
-    template_name = 'perseverance/account.html'
-
-
+'''
 
 
 

@@ -13,14 +13,14 @@
     {% if latest_deposit_list %}
       <ul>
         {% for customer in latest_deposit_list %}
-          <li> <a href="{% url 'perseverance:detail' customer.id %}">{{customer.customer_text}}</a> </li>
+          <li> <a href="{% url 'perseverance:tranx' customer.id %}">{{customer.customer_text}}</a> </li>
         {% endfor %}
       </ul>
     {% else %}
       <p>No customers yet, hang in there.</p>
     {% endif %}
     {% endblock content %}
-    
+
     <br>
     <br>
     <br>

@@ -5,3 +5,8 @@ body {
 li a {
   color: silver;
 }
+
+button {
+  background-color: navy;
+  color: white;
+}
