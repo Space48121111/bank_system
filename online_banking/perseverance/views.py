@@ -27,9 +27,9 @@ class TransactionView(generic.DetailView):
 
 def transaction(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
-    withdrawn_balance = customer.balance_set.get(pk=1)
-    deposited_balance = customer.balance_set.get(pk=6)
-    total_balance = customer.balance_set.get(pk=8)
+    withdrawn_balance = customer.balance_set.get(balance_text__startswith='Withdraw')
+    deposited_balance = customer.balance_set.get(balance_text__startswith='Deposit')
+    total_balance = customer.balance_set.get(balance_text__startswith='Total')
 
     if req.method == 'POST':
         # only need the name from the html
@@ -57,8 +57,9 @@ def transaction(req, customer_id):
     context = {
         'form': form,
         'withdrawn_balance': withdrawn_balance,
+        'deposited_balance': deposited_balance,
     }
-    # Nothing printed
+    # Nothing got printed out
     print(context)
 
     return render(req, 'perseverance/account.html', context)

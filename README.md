@@ -1,7 +1,5 @@
 # perseverance_bank_system
 
-16.14.19
-
 # 4th-edition
 
 ![4th-edition-1](https://github.com/Space48121111/perseverance_bank_system/blob/master/Screen%20Shot%202022-09-07%20at%2016.14.19.png)
