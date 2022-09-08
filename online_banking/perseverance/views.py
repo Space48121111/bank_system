@@ -8,7 +8,7 @@ from .models import Customer, Balance
 from .forms import amountForm
 # Create your views here.
 '''
-def index(request):
+def index(req):
     return HttpResponse("Hello world.")
 '''
 
@@ -67,6 +67,21 @@ def transaction(req, customer_id):
 class AccountView(generic.DetailView):
     model = Customer
     template_name = 'perseverance/account.html'
+
+
+
+class TransferView(generic.DetailView):
+    model = Customer
+    template_name = 'perseverance/transfer.html'
+    def get_queryset(self):
+        return Customer.objects.filter(pub_date__lte=timezone.now())
+
+class CostView(generic.DetailView):
+    model = Customer
+    template_name = 'perseverance/cost.html'
+    def get_queryset(self):
+        return Customer.objects.filter(pub_date__lte=timezone.now())
+
 
 '''
 class DetailView(generic.DetailView):
