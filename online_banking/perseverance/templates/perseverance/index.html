@@ -8,7 +8,11 @@
   </head>
   <body>
     <h1>Perseverance Bank</h1>
-
+    <div class="topnav" id="nav">
+          <a href="{% url 'perseverance:index' %}" class="active">Home</a>
+          <a href="{% url 'perseverance:tranfer' %}">ACH Transfer</a>
+          <a href="{% url 'perseverance:cost' %}">Cost Simulator</a>
+    </div>
     {% block content %}
     {% if latest_deposit_list %}
       <ul>

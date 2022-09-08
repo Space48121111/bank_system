@@ -10,3 +10,18 @@ button {
   background-color: navy;
   color: white;
 }
+
+.topnav {
+  background-color: navy;
+  color: white;
+}
+
+.topnav a.active {
+  background-color: violet;
+  color: white;
+}
+
+.topnav a:hover {
+  background-color: black;
+  color: silver;
+}
