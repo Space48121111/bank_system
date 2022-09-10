@@ -1,5 +1,6 @@
 body {
   background-color: beige;
+  font-family: fantasy;
 }
 
 li a {
@@ -14,6 +15,11 @@ button {
 .topnav {
   background-color: silver;
   color: white;
+}
+
+.topnav a:link {
+  padding: 30px;
+  text-decoration: none;
 }
 
 .topnav a.active {
