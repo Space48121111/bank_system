@@ -12,5 +12,5 @@ urlpatterns = [
     # path('transfer/', views.transfer, name='transfer'),
     # path('cost/', views.cost, name='cost'),
     path('tranfer/', views.TransferView.as_view(), name='tranfer'),
-    path('cost/', views.CostView.as_view(), name='cost'),
+    path('cost/', views.cost, name='cost'),
 ]

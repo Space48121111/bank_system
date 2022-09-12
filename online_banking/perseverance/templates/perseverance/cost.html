@@ -1,4 +1,44 @@
-{% extends index.html %}
+{% extends "./index.html" %}
 {% block content %}
-  <p>Cost Simulator</p>
+  <center>
+  <h2>Income Statement</h2>
+  <table>
+    <tr>
+      <th></th>
+      <th>Debit(+)</th>
+      <th>Credit(-)</th>
+    </tr>
+    <tr>
+      <th>Income</th>
+      <td>$1000</td>
+    </tr>
+    <tr>
+      <th>Expense</th>
+      <td></td>
+      <td>$(800)</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td>-----</td>
+      <td>-----</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td>$1000</td>
+      <td>$(800)</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>-----</td>
+    </tr>
+    <tr>
+      <th>Profit/Loss</th>
+      <td></td>
+      <td></td>
+      <td>$200</td>
+    </tr>
+  </table>
+  </center>
 {% endblock content %}

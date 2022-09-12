@@ -7,6 +7,10 @@ li a {
   color: silver;
 }
 
+table {
+  width: 150%;
+}
+
 button {
   background-color: navy;
   color: white;
@@ -30,4 +34,9 @@ button {
 .topnav a:hover {
   background-color: black;
   color: silver;
+}
+
+.topnav a:visited {
+  background-color: silver;
+  color: white;
 }

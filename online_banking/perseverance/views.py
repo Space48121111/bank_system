@@ -79,11 +79,9 @@ class TransferView(generic.DetailView):
     def get_queryset(self):
         return Customer.objects.filter(pub_date__lte=timezone.now())
 
-class CostView(generic.DetailView):
-    model = Customer
+def cost(req):
     template_name = 'perseverance/cost.html'
-    def get_queryset(self):
-        return Customer.objects.filter(pub_date__lte=timezone.now())
+    return render(req, template_name)
 
 
 '''
