@@ -1,0 +1,33 @@
+body {
+  background-color: beige;
+  font-family: fantasy;
+}
+
+li a {
+  color: silver;
+}
+
+button {
+  background-color: navy;
+  color: white;
+}
+
+.topnav {
+  background-color: silver;
+  color: white;
+}
+
+.topnav a:link {
+  padding: 30px;
+  text-decoration: none;
+}
+
+.topnav a.active {
+  background-color: violet;
+  color: white;
+}
+
+.topnav a:hover {
+  background-color: black;
+  color: silver;
+}

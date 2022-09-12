@@ -9,7 +9,10 @@ from .forms import amountForm
 # Create your views here.
 '''
 def index(req):
-    return HttpResponse("Hello world.")
+    # return HttpResponse("Hello world.")
+    context = ['latest_deposit_list': latest_deposit_list]
+    return render(req, 'checkIn/index.html', context)
+
 '''
 
 class IndexView(generic.ListView):
