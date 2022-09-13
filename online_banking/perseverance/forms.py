@@ -1,11 +1,23 @@
+from django.forms import ModelForm, Form
 from django import forms
-
-class amountForm(forms.Form):
-    w_amt = forms.FloatField(label='Withdraw')
-    d_amt = forms.FloatField(label='Deposit')
+from .models import Balance
 
 '''
-class amountModelForm(forms.ModelForm):
+class amountForm(Form):
+    w_amt = forms.DecimalField()
+    d_amt = forms.DecimalField()
+'''
+
+class amountForm(ModelForm):
+    balance_text = forms.CharField()
+    defaults = forms.DecimalField()
+    class Meta:
+        model = Balance
+        # fields = "__all__"
+        fields = ['balance_text', 'defaults']
+
+'''
+class amountModelForm(ModelForm):
     amount = forms.FloatField(widget="forms.NumberInput"(
     attrs={'class':'form-control', 'placeholder':'1000.00'}))
 

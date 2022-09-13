@@ -1,0 +1,10 @@
+{% extends "./index.html" %}
+  {% block content %}
+  <p>I'd like to Withdraw/Deposit (amount) from/into my account: </p>
+  <form class="" action="{% url 'perseverance:tranx' customer.id %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form }}
+  </form>
+
+  <button type="submit" name="confirm">Confirm</button>
+  {% endblock content %}

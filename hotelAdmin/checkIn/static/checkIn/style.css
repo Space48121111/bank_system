@@ -12,12 +12,18 @@ button {
   color: white;
 }
 
+input {
+  height: 80px;
+  width: 250px;
+  font-size: 30px;
+}
+
 .topnav {
   background-color: silver;
   color: white;
 }
 
-.topnav a:link {
+a:link {
   padding: 30px;
   text-decoration: none;
 }

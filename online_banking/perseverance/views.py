@@ -11,7 +11,7 @@ from .forms import amountForm
 def index(req):
     # return HttpResponse("Hello world.")
     context = ['latest_deposit_list': latest_deposit_list]
-    return render(req, 'checkIn/index.html', context)
+    return render(req, 'perseverance/index.html', context)
 
 '''
 
@@ -21,51 +21,51 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Customer.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
+'''
 class TransactionView(generic.DetailView):
     model = Customer
-    template_name = 'perseverance/transaction.html'
+    template_name = 'perseverance/transaction0.html'
 
     def get_queryset(self):
         return Customer.objects.filter(pub_date__lte=timezone.now())
+'''
 
+def tranx(req, customer_id):
+    customer = get_object_or_404(Customer, pk=customer_id)
+
+    form = amountForm(req.POST)
+    print(form)
+
+    template_name = 'perseverance/cost.html'
+
+    return render(req, template_name, {'form' : form})
+
+'''
 def transaction(req, customer_id):
     customer = get_object_or_404(Customer, pk=customer_id)
     withdrawn_balance = customer.balance_set.get(balance_text__startswith='Withdraw')
     deposited_balance = customer.balance_set.get(balance_text__startswith='Deposit')
     total_balance = customer.balance_set.get(balance_text__startswith='Total')
 
-    if req.method == 'POST':
-        # only need the name from the html
-        # <input type="radio" name="balance" value="w_bal">
-        # <input type="number" name="w_amt" value="0"><br><br><br>
-        form = amountForm(req.POST)
-        if form.is_valid():
-            w_amt = form.cleaned_data['w_amt']
-            d_amt = form.cleaned_data['d_amt']
-            option = req.POST['balance']
-            print(option)
-            if option == 'w_bal':
-                withdrawn_balance.defaults = w_amt
-                withdrawn_balance.save()
-            if option == 'd_bal':
-                deposited_balance.defaults = d_amt
-            total_balance.defaults = (deposited_balance.defaults - withdrawn_balance.defaults)
-            deposited_balance.save()
-            total_balance.save()
-            return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
-    else:
-        form = amountForm()
+    # only need the name from the html
+    # <input type="radio" name="balance" value="w_bal">
+    # <input type="number" name="w_amt" value="0"><br><br><br>
+    if form.is_valid():
+        w_amt = form.cleaned_data['w_amt']
+        d_amt = form.cleaned_data['d_amt']
+        option = req.POST['balance']
+        print(option)
+        if option == 'w_bal':
+            withdrawn_balance.defaults = w_amt
+            withdrawn_balance.save()
+        if option == 'd_bal':
+            deposited_balance.defaults = d_amt
+        total_balance.defaults = (deposited_balance.defaults - withdrawn_balance.defaults)
+        deposited_balance.save()
+        total_balance.save()
+        return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
+'''
 
-    # ? not getting executed somehow
-    context = {
-        'form': form,
-        'withdrawn_balance': withdrawn_balance,
-        'deposited_balance': deposited_balance,
-    }
-    # Nothing got printed out
-    print(context)
-
-    return render(req, 'perseverance/account.html', context)
 
 class AccountView(generic.DetailView):
     model = Customer
@@ -85,6 +85,7 @@ def cost(req):
 
 
 '''
+
 class DetailView(generic.DetailView):
     model = Customer
     template_name = 'perseverance/detail.html'

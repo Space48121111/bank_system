@@ -8,13 +8,21 @@ li a {
 }
 
 table {
-  width: 150%;
+  width: 100%;
+}
+
+
+input {
+  height: 80px;
+  width: 250px;
+  font-size: 25px;
 }
 
 button {
   background-color: navy;
   color: white;
 }
+
 
 .topnav {
   background-color: silver;
@@ -36,7 +44,7 @@ button {
   color: silver;
 }
 
-.topnav a:visited {
+/* .topnav a:visited {
   background-color: silver;
   color: white;
-}
+} */

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>
+    {% block title %}
+    Home Page
+    {% endblock %}
+    </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'checkIn/style.css' %}">
+  </head>
+  <body>
+    <h1>Hi there.</h1>
+    <center>
+    <div class="topnav" id="nav">
+      <a href="{% url 'checkIn:home'%}" class="active">Home</a>
+    </div>
+    <div class="" id='content' name='content'>
+      {% block content %}
+      <a href="{% url 'checkIn:create'%}">Create A New Guest</a>
+      {% endblock %}
+    </div>
+    {{ name }}
+
+  </center>
+  </body>
+</html>

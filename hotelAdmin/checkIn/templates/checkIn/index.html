@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Check In</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'checkIn/style.css' %}">
-  </head>
-  <body>
-    <h1>Hi there.</h1>
-    <center>
-    <div class="topnav" id="nav">
-      <a href="{% url 'checkIn:index' %}" class="active">Home</a>
-    </div>
-  </center>
-  </body>
-</html>
+{% extends 'checkIn/home.html'%}
+{% block title %}
+Guest List
+{% endblock %}
+{% block content %}
+<h1>GuestList</h1>
+<h2>{{ ls.name }}</h2>
+  <ul>
+  {% for g in ls.guest_set.all %}
+    {% if g.checkedIn == True %}
+      <li>{{g.guest}} - Checked In</li>
+    {% else %}
+      <li>{{g.guest}} - Hasn't Checked In</li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+{% endblock %}
