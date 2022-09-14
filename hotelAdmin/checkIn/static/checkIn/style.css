@@ -12,6 +12,14 @@ button {
   color: white;
 }
 
+.del input {
+  background-color: navy;
+  color: white;
+  height: 30px;
+  width: 40px;
+  font-size: 10px;
+}
+
 input {
   height: 80px;
   width: 250px;

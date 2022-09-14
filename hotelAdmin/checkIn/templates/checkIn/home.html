@@ -11,18 +11,30 @@
     <link rel="stylesheet" href="{% static 'checkIn/style.css' %}">
   </head>
   <body>
-    <h1>Hi there.</h1>
+    <h1>Don't bring a knife to a gun fight.</h1>
     <center>
     <div class="topnav" id="nav">
-      <a href="{% url 'home'%}" class="active">Home</a>
+      <a href="{% url 'home' %}" class="active">Home</a>
+      <a href="{% url 'create' %}">Create A New Guest</a>
     </div>
     <div class="" id='content' name='content'>
       {% block content %}
-      <a href="{% url 'create'%}">Create A New Guest</a>
+      <br>
+      <p>{{ name }}</p>
+      <h3>Guest List </h3>
+      {% for ls in list %}
+        All -- {{ls}} {{ls.id}}
+        <form class="del" action="{% url 'delete' ls.id %}" method="post">
+          {% csrf_token %}
+          <input class='del' type="submit" name="del" value="Del">
+        </form>
+          {% for g in ls.guest_set.all %}
+            With properties -- {{ls}} {{ls.id}}
+            {{g.memo}}<br>
+          {% endfor %}
+      {% endfor %}
       {% endblock %}
     </div>
-    {{ name }}
-
-  </center>
+    </center>
   </body>
 </html>
