@@ -32,6 +32,7 @@ def create(response):
             m = GuestList(pk=g.id).guest_set.create(memo=memo, checkedIn=checkedIn)
             print(m)
             m.save()
+        # going back two directories ../
         return HttpResponseRedirect('../%i' %g.id)
     else:
         form = CreateGuest()
