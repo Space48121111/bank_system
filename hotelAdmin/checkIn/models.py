@@ -9,7 +9,7 @@ class GuestList(models.Model):
 
 class Guest(models.Model):
     guestlist = models.ForeignKey(GuestList, on_delete=models.CASCADE)
-    guest = models.CharField(max_length=200)
-    checkedIn = models.BooleanField()
+    memo = models.CharField(max_length=200, blank=True)
+    checkedIn = models.BooleanField(null=True)
     def __str__(self):
-        return self.guest
+        return self.memo

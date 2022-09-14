@@ -8,9 +8,9 @@ Guest List
   <ul>
   {% for g in ls.guest_set.all %}
     {% if g.checkedIn == True %}
-      <li>{{g.guest}} - Checked In</li>
+      <li>{{g.memo}} - Checked In</li>
     {% else %}
-      <li>{{g.guest}} - Hasn't Checked In</li>
+      <li>{{g.memo}} - Hasn't Checked In</li>
     {% endif %}
   {% endfor %}
   </ul>

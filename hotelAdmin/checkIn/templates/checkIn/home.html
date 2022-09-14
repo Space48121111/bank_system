@@ -14,11 +14,11 @@
     <h1>Hi there.</h1>
     <center>
     <div class="topnav" id="nav">
-      <a href="{% url 'checkIn:home'%}" class="active">Home</a>
+      <a href="{% url 'home'%}" class="active">Home</a>
     </div>
     <div class="" id='content' name='content'>
       {% block content %}
-      <a href="{% url 'checkIn:create'%}">Create A New Guest</a>
+      <a href="{% url 'create'%}">Create A New Guest</a>
       {% endblock %}
     </div>
     {{ name }}

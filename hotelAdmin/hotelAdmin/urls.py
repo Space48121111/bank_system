@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('checkIn/', include('checkIn.urls')),
+    path('', include('checkIn.urls')),
     path('admin/', admin.site.urls),
 ]
 
