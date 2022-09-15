@@ -1,21 +1,22 @@
 {% extends "./index.html" %}
+  {% block title %}
+  Account Page
+  {% endblock %}
   {% block content %}
     <h1>{{ customer.customer_text }}  </h1>
     <p>You've been doing business with us since {{ customer.pub_date }}</p><br>
 
-    {% for bal in customer.balance_set.all %}
-      <p>Your {{ bal.balance_text }} amount is: <strong>$ {{ bal.defaults }} </strong> defaults </p>
-    {% endfor %}
-
-    <br>
     <p>Here's your transaction history: </p>
-    {% for bal in customer.balance_set.all %}
-      {% if bal.balance_text == 'Withdraw' %}
-       Withdrew <strong>$ -{{ bal.defaults }} </strong> defaults </p>
-      {% elif bal.balance_text == 'Deposit' %}
-       Deposited <strong>$ {{ bal.defaults }} </strong> defaults </p>
-     {% endif %}
-    {% endfor %}
+    <ul>
+      {% for bal in customer.balance_set.all %}
+        {% if bal.balance_text == 'Withdraw' %}
+         Withdrew <strong>$ -{{ bal.defaults }} </strong> defaults {{bal.timestamp}}</p>
+        {% elif bal.balance_text == 'Deposit' %}
+         Deposited <strong>$ {{ bal.defaults }} </strong> defaults {{bal.timestamp}}</p>
+       {% endif %}
+      {% endfor %}
+    </ul>
+
     <a href="{% url 'perseverance:tranx' customer.id %}">Make another transaction? >> </a>
     <br>
     <a href="{% url 'perseverance:index' %}">Go back to main page? >></a>

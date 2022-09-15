@@ -7,6 +7,7 @@ from django.utils import timezone
 from .models import Customer, Balance
 from .forms import amountForm
 # Create your views here.
+
 '''
 def index(req):
     # return HttpResponse("Hello world.")
@@ -21,24 +22,43 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Customer.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
 
-'''
-class TransactionView(generic.DetailView):
-    model = Customer
-    template_name = 'perseverance/transaction0.html'
-
-    def get_queryset(self):
-        return Customer.objects.filter(pub_date__lte=timezone.now())
-'''
-
 def tranx(req, customer_id):
+    template = 'perseverance/tranx.html'
     customer = get_object_or_404(Customer, pk=customer_id)
+    t = timezone.now()
+    if req.method == 'POST':
+        form = amountForm(req.POST)
+        if form.is_valid():
+            balance_text = form.cleaned_data['balance_text']
+            defaults = form.cleaned_data['defaults']
+            d = Customer(pk=customer_id).balance_set.create(balance_text=balance_text, defaults=defaults, timestamp=t)
+            d.save()
+            return HttpResponseRedirect('../account/')
+    else:
+        form = amountForm()
+    context = {
+        'form' : form,
+        't' : t,
+        }
 
-    form = amountForm(req.POST)
-    print(form)
+    return render(req, template, context)
 
+
+class AccountView(generic.DetailView):
+    model = Customer
+    template_name = 'perseverance/account.html'
+
+
+class TransferView(generic.DetailView):
+    model = Customer
+    template_name = 'perseverance/transfer.html'
+
+
+def cost(req):
     template_name = 'perseverance/cost.html'
+    return render(req, template_name)
 
-    return render(req, template_name, {'form' : form})
+
 
 '''
 def transaction(req, customer_id):
@@ -65,24 +85,6 @@ def transaction(req, customer_id):
         total_balance.save()
         return HttpResponseRedirect(reverse('perseverance:account', args=(customer.id,)))
 '''
-
-
-class AccountView(generic.DetailView):
-    model = Customer
-    template_name = 'perseverance/account.html'
-
-
-
-class TransferView(generic.DetailView):
-    model = Customer
-    template_name = 'perseverance/transfer.html'
-    def get_queryset(self):
-        return Customer.objects.filter(pub_date__lte=timezone.now())
-
-def cost(req):
-    template_name = 'perseverance/cost.html'
-    return render(req, template_name)
-
 
 '''
 

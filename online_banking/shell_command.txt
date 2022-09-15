@@ -24,11 +24,13 @@ from perseverance.models import Customer, Balance
 
 ? Create object instance balance
 >>
-c = Customer.objects.get(pk=1)
+c = Customer.objects.get(pk=2)
 >>
 c.balance_set.create(balance_text='Total', defaults=1000)
 >>
-Customer(pk=1).balance_set.create(balance_text='Total', defaults=0)
+t = Customer(pk=1).balance_set.create(balance_text='Total', defaults=0)
+# vice versa
+t.customer
 c.balance_set.get(balance_text__startswith='Deposit')
 d = c.balance_set.filter(balance_text__startswith='Total')
 d.delete()

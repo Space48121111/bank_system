@@ -1,24 +1,28 @@
-from django.forms import ModelForm, Form
 from django import forms
 from .models import Balance
+from decimal import Decimal
 
 '''
-class amountForm(Form):
+class amountForm(forms.Form):
     w_amt = forms.DecimalField()
     d_amt = forms.DecimalField()
 '''
 
-class amountForm(ModelForm):
-    balance_text = forms.CharField()
-    defaults = forms.DecimalField()
+bal_choices = (
+    ('Withdraw', 'Withdraw'),
+    ('Deposit', 'Deposit'),
+)
+class amountForm(forms.Form):
+    balance_text = forms.ChoiceField(label='Withdraw/Deposit', choices = bal_choices)
+    defaults = forms.DecimalField(label='Defaults', max_digits=20)
     class Meta:
         model = Balance
         # fields = "__all__"
         fields = ['balance_text', 'defaults']
 
 '''
-class amountModelForm(ModelForm):
-    amount = forms.FloatField(widget="forms.NumberInput"(
+class amountModelForm(forms.ModelForm):
+    amount = forms.DecimalField(widget="forms.NumberInput"(
     attrs={'class':'form-control', 'placeholder':'1000.00'}))
 
     class Meta:

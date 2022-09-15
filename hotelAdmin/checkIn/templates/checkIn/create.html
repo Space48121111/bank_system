@@ -1,13 +1,13 @@
 {% extends 'checkIn/index.html'%}
-{% block title %}
-Check-In Page
-{% endblock %}
+  {% block title %}
+  Check-In Page
+  {% endblock %}
 
-{% block content %}
-Create page
-<form class="" action="" method="post">
-  {% csrf_token %}
-  {{form.as_p}}
-  <button type="submit" name="save">Confirm</button>
-</form>
+  {% block content %}
+  Create page
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" name="save">Confirm</button>
+  </form>
 {% endblock %}

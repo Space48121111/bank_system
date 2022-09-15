@@ -27,7 +27,9 @@ class Balance(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     balance_text = models.CharField(max_length=200)
     # defaults = models.FloatField(default=-999999999.999999999)
-    defaults = models.DecimalField(max_digits=20, decimal_places=2)
+    defaults = models.DecimalField(max_digits=20, decimal_places=2, default=1000.00)
+    timestamp = models.DateTimeField('Transaction timestamp ')
+
 
     def __str__(self):
         return self.balance_text

@@ -2,7 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Perseverance Bank</title>
+    <title>
+      {% block title %}
+      Perseverance Bank
+      {% endblock %}
+      </title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'perseverance/style.css' %}">
   </head>
@@ -16,10 +20,14 @@
     </div>
     </center>
     {% block content %}
+    <h1>Customer List</h1>
     {% if latest_deposit_list %}
       <ul>
         {% for customer in latest_deposit_list %}
-          <li> <a href="{% url 'perseverance:tranx' customer.id %}">{{customer.customer_text}}</a> </li>
+          <li> <a href="{% url 'perseverance:tranx' customer.id %}">{{customer.customer_text}} -- {{ customer.id }}</a> </li>
+          {% for b in customer.balance_set.all %}
+            <li>{{b.balance_text}} -- {{b.defaults}} -- {{b.timestamp}}</li><br>
+          {% endfor %}
         {% endfor %}
       </ul>
     {% else %}
