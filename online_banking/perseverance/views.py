@@ -43,6 +43,18 @@ def tranx(req, customer_id):
 
     return render(req, template, context)
 
+def delete(response, id):
+    bal = get_object_or_404(Balance, pk=id)
+    try:
+        if response.method == 'POST':
+            bal.delete()
+        return HttpResponseRedirect('/')
+    except (KeyError, Guest.DoesNotExist):
+        context = {
+            'bal': bal,
+            'error_message': "This bal does not exist."
+        }
+        return render(response, 'perseverance/index.html', context)
 
 class AccountView(generic.DetailView):
     model = Customer

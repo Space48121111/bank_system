@@ -26,7 +26,12 @@
         {% for customer in latest_deposit_list %}
           <li> <a href="{% url 'perseverance:tranx' customer.id %}">{{customer.customer_text}} -- {{ customer.id }}</a> </li>
           {% for b in customer.balance_set.all %}
-            <li>{{b.balance_text}} -- {{b.defaults}} -- {{b.timestamp}}</li><br>
+            <ul>{{b.balance_text}} -- {{b.defaults}} -- {{b.timestamp}}</ul>
+            <form class="del" action="{% url 'perseverance:delete' b.id %}" method="post">
+              {% csrf_token %}
+              <input class='del' type="submit" name="del" value="Del">
+            </form>
+            <br>
           {% endfor %}
         {% endfor %}
       </ul>
