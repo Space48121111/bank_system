@@ -1,0 +1,10 @@
+This is major. We're back online.
+
+?.venv re-install pip django?
+
+>>
+python -m ensurepip --default-pip
+/Users/Stella/project_x/perseverance_bank_system/.venv/bin/python -m pip install --upgrade pip
+python -m pip install Django
+
+python manage.py runserver
