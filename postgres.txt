@@ -1,0 +1,21 @@
+#concepts
+client/server
+diff hosts -> TCP/IP -> diff file names
+concurrent: supervisor always running, client/server processes easy come and easy go
+roles: user/groups
+
+>>
+brew install postgresql
+>>
+brew services start postgresql
+>>
+brew search postgres
+>>
+createdb dentistDB
+absolute path: /usr/local/pgsql/bin/createdb dentistDB
+
+#pgadmin
+initialize: add new server
+host name port user-system user
+config PATH: sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin
+sudo tee /etc/paths.d/postgresapp
