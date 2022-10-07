@@ -11,6 +11,6 @@ urlpatterns = [
     path('<int:pk>/account/', views.AccountView.as_view(), name='account'),
     path('<int:id>/del', views.delete, name='delete'),
     # path('transfer/', views.transfer, name='transfer'),
-    path('tranfer/', views.TransferView.as_view(), name='tranfer'),
+    path('transfer/', views.TransferView.as_view(), name='transfer'),
     path('cost/', views.cost, name='cost'),
 ]

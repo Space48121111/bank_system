@@ -7,4 +7,7 @@ python -m ensurepip --default-pip
 /Users/Stella/project_x/perseverance_bank_system/.venv/bin/python -m pip install --upgrade pip
 python -m pip install Django
 
-python manage.py runserver
+python manage.py runserver >> username >> email >> password
+
+python manage.py makemigrations
+python manage.py migrate
