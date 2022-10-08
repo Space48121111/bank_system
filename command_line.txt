@@ -1,6 +1,4 @@
-This is major. We're back online.
-
-?.venv re-install pip django?
+Automating processes
 
 >>
 python -m ensurepip --default-pip
@@ -8,9 +6,35 @@ python -m ensurepip --default-pip
 python -m pip install Django
 
 python -m django --version
+
+>>
 django-admin startproject clinicClients
+# databases, TIME_ZONE
+>>
+python manage.py startapp dentist
+# settings INSTALLED_APPS, AppnameConfig
+# templates
+>
+    'dentist.apps.DentistConfig',
+    'DIRS': [BASE_DIR / 'templates'],
 
-python manage.py runserver >> username >> email >> password
+# model, views, forms, template, static, urls * (2+),
+>>
+cd dentist echo "form" -> forms.py mkdir templates mkdir static  echo "url" -> urls.py
+> replace keyword
 
+>>
+cd templates mkdir dentist cd dentist
+echo "html" -> home.html create.html index.html
+>> cd ../static mkdir dentist cd dentist echo "css" -> style.css
+
+>>
 python manage.py makemigrations
 python manage.py migrate
+
+>>
+python manage.py runserver >> username >> email >> password
+
+
+#postgres
+>> if [my_service], put . files into home directory ~/

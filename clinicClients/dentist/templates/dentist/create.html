@@ -1,0 +1,13 @@
+{% extends 'dentist/index.html'%}
+  {% block title %}
+  Make Appointments Page
+  {% endblock %}
+
+  {% block content %}
+  Create page
+  <form class="" action="" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" name="save">Confirm</button>
+  </form>
+{% endblock %}

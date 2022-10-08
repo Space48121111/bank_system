@@ -4,8 +4,10 @@ diff hosts -> TCP/IP -> diff file names
 concurrent: supervisor always running, client/server processes easy come and easy go
 roles: user/groups
 
+#install postgres
 >>
 brew install postgresql
+rm -r /usr/local/var/postgresql@14
 >>
 brew services start postgresql
 >>
@@ -14,8 +16,21 @@ brew search postgres
 createdb dentistDB
 absolute path: /usr/local/pgsql/bin/createdb dentistDB
 
-#pgadmin
+# and then install pgadmin
 initialize: add new server
 host name port user-system user
-config PATH: sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin
-sudo tee /etc/paths.d/postgresapp
+config PATH/command line tool: >>
+sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
+
+>> psql postgres
+>> psql -U postgres -d dentistDB -h localhost
+#reset zsh >>
+PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
+export PATH
+>> \l
+>> \du
+>> \dn
+>> \q
+
+#check server up and running
+>> ps -ef | grep postgres

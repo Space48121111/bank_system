@@ -1,0 +1,18 @@
+{% extends 'dentist/home.html'%}
+{% block title %}
+Client List
+{% endblock %}
+{% block content %}
+<h1>ClientList</h1>
+<h2>{{ ls.name }}</h2>
+  <ul>
+  {% for g in ls.client_set.all %}
+    {% if g.has_appointment == True %}
+      <li>{{g.memo}} - {{g.has_appointment}} Has Appointments</li>
+    {% else %}
+      <li>{{g.memo}} - {{g.has_appointment}} Hasn't Got Appointments</li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+
+{% endblock %}

@@ -1,5 +1,5 @@
-? How does sqlite work under the hood
-#
+#sqlite under the hood
+
 python manage.py sqlmigrate perseverance 0001
 >>
 for p in Customer.objects.raw('SELECT * FROM perseverance_customer'):

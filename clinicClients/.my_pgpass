@@ -1,0 +1,5 @@
+# put into ~/ home directory AND comment out these lines above
+# hostname:port:database:username:password
+# localhost:5432:PostgreSQL postgres:stella:password
+
+localhost:5432:dentistDB:stella:password
