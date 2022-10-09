@@ -46,6 +46,7 @@ def index(response, id):
     # {'name':ls.name}
 
 class AppointmentDetailView(DetailView):
+    template = 'dentist/appointment.html'
     model = Appointment
 
 
@@ -76,10 +77,11 @@ def create(response):
 class AppointmentCreateView(SuccessMessageMixin, CreateView):
     # template = 'dentist/appointment_form.html'
 
-    model = Appointment
-    # fields = ['name', 'phone_no']
+    model = ClientList
 
+    # fields = ['name', 'phone_no']
     fields = '__all__'
+
     success_message = 'Appointment created successfully.'
 
 class AppointmentUpdateView(SuccessMessageMixin, UpdateView):
