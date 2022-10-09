@@ -30,8 +30,8 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    'dentist.apps.DentistConfig',
+DJANGO_APPS = [
+    # 'dentist.apps.DentistConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+THIRD_PARTY_APPS = [
+    'bootstrap3',
+    'django_forms_bootstrap',
+]
+
+LOCAL_APPS = [
+    'dentist',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,7 +67,8 @@ ROOT_URLCONF = 'clinicClients.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        # 'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': ['templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +81,9 @@ TEMPLATES = [
     },
 ]
 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 WSGI_APPLICATION = 'clinicClients.wsgi.application'
 
 
@@ -77,6 +93,7 @@ WSGI_APPLICATION = 'clinicClients.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+        # postgresql_psycopg2
         'NAME': 'dentistDB',
         'USER': 'stella',
         'PASSWORD': 'password',
@@ -123,6 +140,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+
+#  'PosixPath' and 'str'
+# STATIC_ROOT = BASE_DIR + '/staticfiles'
 
 STATIC_URL = 'static/'
 

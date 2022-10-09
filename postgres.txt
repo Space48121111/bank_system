@@ -4,7 +4,7 @@ diff hosts -> TCP/IP -> diff file names
 concurrent: supervisor always running, client/server processes easy come and easy go
 roles: user/groups
 
-#install postgres
+#install postgresql
 >>
 brew install postgresql
 rm -r /usr/local/var/postgresql@14
