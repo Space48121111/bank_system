@@ -9,7 +9,8 @@ class GuestList(models.Model):
 
 class Guest(models.Model):
     guestlist = models.ForeignKey(GuestList, on_delete=models.CASCADE)
-    memo = models.CharField(max_length=200, blank=True)
+    memo = models.TextField(blank=True)
     checkedIn = models.BooleanField(null=True)
+    made_on = models.DateField(default='2023-01-01')
     def __str__(self):
         return self.memo

@@ -7,14 +7,14 @@ roles: user/groups
 #install postgresql
 >>
 brew install postgresql
-rm -r /usr/local/var/postgresql@14
+# rm -r /usr/local/var/postgresql@14
 >>
 brew services start postgresql
 >>
 brew search postgres
 >>
 createdb dentistDB
-absolute path: /usr/local/pgsql/bin/createdb dentistDB
+# absolute path: /usr/local/pgsql/bin/createdb dentistDB
 
 # and then install pgadmin
 initialize: add new server
@@ -27,6 +27,7 @@ sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/
 #reset zsh >>
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH
+
 >> \l
 >> \dt
 >> SELECT * FROM dentist_clientlist;

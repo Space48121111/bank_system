@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import GuestList, Guest
 from .forms import CreateGuest
+from django.views.generic.edit import CreateView
 
 # Create your views here.
 def home(response):
@@ -15,6 +16,10 @@ def home(response):
         }
     return render(response, template, context)
 
+# class GuestCreateView(CreateView):
+#     model = Guest
+#     form_class = CreateGuest
+
 def create(response):
     template = 'checkIn/create.html'
     if response.method == 'POST':
@@ -24,10 +29,11 @@ def create(response):
             name = form.cleaned_data['name']
             memo = form.cleaned_data['memo']
             checkedIn = form.cleaned_data['checkedIn']
+            made_on = form.cleaned_data['made_on']
             g = GuestList(name=name)
             print(g.id, g)
             g.save()
-            m = GuestList(pk=g.id).guest_set.create(memo=memo, checkedIn=checkedIn)
+            m = GuestList(pk=g.id).guest_set.create(memo=memo, checkedIn=checkedIn, made_on=made_on)
             print(m)
             m.save()
         # going back two directories ../

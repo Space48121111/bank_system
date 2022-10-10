@@ -10,6 +10,7 @@ class ClientList(models.Model):
     email = models.EmailField(max_length=200, default='example@gmail.com')
     # '%m/%d/%Y %H:%M',       # '10/25/2006 14:30'
     # YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format
+    appt_date = models.DateField(default='2023-01-01')
     timing = models.DateTimeField('Your appt time is ', default='Oct. 10, 2022, 10:00 a.m.')
 
 

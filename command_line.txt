@@ -2,27 +2,33 @@ Automating processes
 
 >> python -m venv .venv
 >> source .venv/bin/activate
-# 2nd time install pip
+# re-install pip site-packages
 >> python -m ensurepip --default-pip
 # upgrade pip
 >> /Users/Stella/project_x/perseverance_bank_system/.venv/bin/python -m pip install --upgrade pip
-python -m pip install Django
+
+>> python -m pip install Django
 
 python -m django --version
 
 >>
 django-admin startproject clinicClients
-# databases, TIME_ZONE
+# auto create folders
+>> cd clinicClients
 >>
 python manage.py startapp dentist
 # settings INSTALLED_APPS, AppnameConfig
-# templates
+# templates # databases, TIME_ZONE
+#postgres
+>> if [my_service], put . files into home directory ~/
+
 >
     'dentist.apps.DentistConfig',
     'DIRS': [BASE_DIR / 'templates'],
 
-# model, views, forms, template, static, urls * (2+),
-> replce keywords
+# model, views, forms/django default class views,
+template, static, urls * (2+),
+> replace keywords
 >>
 cd dentist echo "form" -> forms.py mkdir templates mkdir static  echo "url" -> urls.py
 > replace keyword
@@ -39,9 +45,6 @@ python manage.py migrate
 >>
 python manage.py runserver >> username >> email >> password
 
-
-#postgres
->> if [my_service], put . files into home directory ~/
 
 #css
 pip3 install django-bootstrap3

@@ -23,15 +23,14 @@
       <p>{{ name }}</p>
       <h3>Guest List </h3>
       {% for ls in list %}
-        All -- {{ls}} {{ls.id}}
-        <form class="del" action="{% url 'delete' ls.id %}" method="post">
-          {% csrf_token %}
-          <input class='del' type="submit" name="del" value="Del">
-        </form>
           {% for g in ls.guest_set.all %}
-            With properties -- {{ls}} {{ls.id}}
-            {{g.memo}}<br>
+            {{ls}} {{ls.id}} {{g.memo}} {{g.checkedIn}} {{g.made_on}}
+            <form class="del" action="{% url 'delete' ls.id %}" method="post">
+              {% csrf_token %}
+              <input class='del' type="submit" name="del" value="Del">
+            </form>
           {% endfor %}
+
       {% endfor %}
       {% endblock %}
     </div>
