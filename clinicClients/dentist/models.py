@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from timezone_field import TimeZoneField
 
 # Create your models here.
 
@@ -9,9 +10,11 @@ class ClientList(models.Model):
     phone_no = models.CharField(max_length=20, default='000-000-000')
     email = models.EmailField(max_length=200, default='example@gmail.com')
     # '%m/%d/%Y %H:%M',       # '10/25/2006 14:30'
+    # default='Oct. 10, 2022, 10:00 a.m.
     # YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format
     appt_date = models.DateField(default='2023-01-01')
-    timing = models.DateTimeField('Your appt time is ', default='Oct. 10, 2022, 10:00 a.m.')
+    timing = models.TimeField('Your appt time is ', default='10:00')
+    time_zone = TimeZoneField(default='UTC')
 
 
     def __str__(self):

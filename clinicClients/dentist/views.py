@@ -78,9 +78,7 @@ class AppointmentCreateView(SuccessMessageMixin, CreateView):
     # template = 'dentist/appointment_form.html'
 
     model = ClientList
-
-    # fields = ['name', 'phone_no']
-    fields = '__all__'
+    form_class = CreateClient
 
     success_message = 'Appointment created successfully.'
 

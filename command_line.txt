@@ -50,7 +50,8 @@ python manage.py runserver >> username >> email >> password
 pip3 install django-bootstrap3
 pip install django_forms_bootstrap
 
-
+# timezone
+pip install django-timezone-field
 
 
 
