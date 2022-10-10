@@ -24,6 +24,7 @@ sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/
 
 >> psql postgres
 >> psql -U stella -d dentistDB -h localhost
+
 #reset zsh >>
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH

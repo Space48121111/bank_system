@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from timezone_field import TimeZoneField
+import datetime
 
 # Create your models here.
 
@@ -24,7 +25,8 @@ class ClientList(models.Model):
 
     def appt_recently(self):
         now = timezone.now()
-        return now - datetime.timedelta(days=5) <= self.timing <= now
+        print('now', now)
+        return now + datetime.timedelta(days=5) <= self.appt_date <= now
 
 
 

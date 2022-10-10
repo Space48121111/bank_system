@@ -42,6 +42,14 @@ echo "html" -> home.html create.html index.html
 python manage.py makemigrations
 python manage.py migrate
 
+# test
+>> ./manage.py test
+>> ./manage.py test dentist.tests.ClientListModelTests.test_appt_recently_with_future_appt
+>> --pattern="tests_*.py"
+>> --keepdb
+# to print all elements
+>> pytest -s
+
 >>
 python manage.py runserver >> username >> email >> password
 
