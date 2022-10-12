@@ -10,8 +10,9 @@ from .models import ClientList, Appointment
 class ClientListModelTests(TestCase):
     def test_appt_recently_with_future_appt(self):
         # future appt -> validate
-        time = timezone.now() + datetime.timedelta(days=30)
+        time = timezone.now() + datetime.timedelta(days=3)
         future_appt = ClientList(appt_date=time)
+        print(time, future_appt)
 
         self.assertIs(future_appt.appt_recently(), True)
 

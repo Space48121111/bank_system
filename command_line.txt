@@ -1,8 +1,9 @@
 Automating processes
 
->> python -m venv .venv
+>> python3 -m venv .venv
 >> source .venv/bin/activate
-# re-install pip site-packages
+
+# re-install pip --site-packages
 >> python -m ensurepip --default-pip
 # upgrade pip
 >> /Users/Stella/project_x/perseverance_bank_system/.venv/bin/python -m pip install --upgrade pip
@@ -19,12 +20,16 @@ django-admin startproject clinicClients
 python manage.py startapp dentist
 # settings INSTALLED_APPS, AppnameConfig
 # templates # databases, TIME_ZONE
+
 #postgres
 >> if [my_service], put . files into home directory ~/
 
 >
     'dentist.apps.DentistConfig',
     'DIRS': [BASE_DIR / 'templates'],
+
+# legacy database 
+python manage.py inspectdb
 
 # model, views, forms/django default class views,
 template, static, urls * (2+),
@@ -43,8 +48,11 @@ python manage.py makemigrations
 python manage.py migrate
 
 # test
->> ./manage.py test
->> ./manage.py test dentist.tests.ClientListModelTests.test_appt_recently_with_future_appt
+>>
+./manage.py test
+>>
+./manage.py test dentist.tests.ClientListModelTests.test_appt_recently_with_future_appt
+
 >> --pattern="tests_*.py"
 >> --keepdb
 # to print all elements
@@ -53,6 +61,7 @@ python manage.py migrate
 >>
 python manage.py runserver >> username >> email >> password
 
+pip install psycopg2-binary
 
 #css
 pip3 install django-bootstrap3
@@ -60,7 +69,6 @@ pip install django_forms_bootstrap
 
 # timezone
 pip install django-timezone-field
-
 
 
 

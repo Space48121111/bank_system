@@ -15,7 +15,7 @@ class ClientList(models.Model):
     # YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ] format
     appt_date = models.DateField(default='2023-01-01')
     timing = models.TimeField('Your appt time is ', default='10:00')
-    time_zone = TimeZoneField(default='UTC')
+    time_zone = TimeZoneField(default='Europe/Helsinki')
 
 
     def __str__(self):
@@ -25,8 +25,9 @@ class ClientList(models.Model):
 
     def appt_recently(self):
         now = timezone.now()
-        print('now', now)
-        return now + datetime.timedelta(days=5) <= self.appt_date <= now
+        print('now', type(now), now)
+        print('self.appt_date', self.appt_date)
+        return now <= self.appt_date <= now + datetime.timedelta(days=5)
 
 
 

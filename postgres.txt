@@ -10,6 +10,8 @@ brew install postgresql
 # rm -r /usr/local/var/postgresql@14
 >>
 brew services start postgresql
+brew services start postgresql@14
+
 >>
 brew search postgres
 >>
