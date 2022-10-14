@@ -25,10 +25,12 @@ python manage.py startapp dentist
 >> if [my_service], put . files into home directory ~/
 
 >
+    'web',
     'dentist.apps.DentistConfig',
     'DIRS': [BASE_DIR / 'templates'],
-
-# legacy database 
+     
+# html: {% load static %}
+# legacy database
 python manage.py inspectdb
 
 # model, views, forms/django default class views,
