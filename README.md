@@ -1,6 +1,7 @@
 # perseverance_bank_system
 
 # 5th-edition electric_motor
+![5th-edition-3](https://github.com/stella-vir/django-appt/blob/master/screenshots/Screen%20Shot%202022-10-16%20at%2008.48.39.png)
 ![5th-edition-2](https://github.com/stella-vir/django-appt/blob/master/screenshots/Screen%20Shot%202022-10-15%20at%2019.02.13.png)
 ![5th-edition-1](https://github.com/stella-vir/django-appt/blob/master/screenshots/Screen%20Shot%202022-10-15%20at%2018.27.20.png)
 ![5th-edition](https://github.com/stella-vir/django-appt/blob/master/screenshots/Screen%20Shot%202022-10-14%20at%2021.12.40.png)
