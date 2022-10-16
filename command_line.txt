@@ -28,7 +28,7 @@ python manage.py startapp dentist
     'web',
     'dentist.apps.DentistConfig',
     'DIRS': [BASE_DIR / 'templates'],
-     
+
 # html: {% load static %}
 # legacy database
 python manage.py inspectdb
@@ -72,8 +72,49 @@ pip install django_forms_bootstrap
 # timezone
 pip install django-timezone-field
 
+# heroku
+>> touch Procfile # web: gunicorn electric_motor.wsgi
+>> pip install gunicorn/django_heroku/python-decouple/dj_database_url
+>> pip freeze requirements.txt
+settings -> import django_heroku/dj_database_url
+        -> from decouple import config
+        -> middleware/static files -> 'whitenoise.middleware.WhiteNoiseMiddleware'
+        ->
+        STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+        -> django_heroku.settings(locals())
+# heroku toolbelt CLI
 
 
+>> brew tap heroku/brew && brew install heroku
 
+>> heroku login
+>> git init
+>>
+curl -u 'stella-vir' https://api.github.com/user/repos -d '{"name":"electric-motor-s"}'
+>> git checkout main/temp
+>> heroku git:remote -a electric-motor-s
+#
+git remote add origin https://github.com/stella-vir/electric-motor-s.git
+git remote add heroku https://github.com/stella-vir/electric-motor-s.git
+>> git remote
+>> git init
+>> git add .
+>> git commit -m "push heroku"
+>> git branch -M main
+>> git push -u origin main
+>> git push heroku main
+# heroku buildpacks:set heroku/python
+>> heroku create electric-motor-s --buildpack heroku/python
+
+>> heroku keys:add
+>> heroku rename electric-motor-s
+
+# git version control
+>> git config --global user.name "stella-vir"
+>> git config --global user.email "stellavir11@gmail.com"
+>> git config --global push.default matching
+>> git config --global alias.co checkout
+>> git init
+>> mkdir ~/.ssh cd ~/.ssh ssh-keygen -t rsa
 
 # end
