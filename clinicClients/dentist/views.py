@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+from django.conf import settings
 
 from .models import ClientList, Appointment
 from .forms import CreateClient
@@ -13,9 +14,34 @@ from django.views.generic.edit import DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 
-
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
+
+def login_view(request):
+    # username = request.POST['username']
+    # handle both post and get
+    username = request.POST.get('username')
+    # password = request.POST['password']
+    password = request.POST.get('password')
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        context = {
+            'username':username,
+            }
+        # Redirect to a success page.
+        return render(response, 'dentist/appointment.html', context)
+
+    else:
+        # Return an 'invalid login' error message.
+        if not request.user.is_authenticated:
+            # return render(request, 'myapp/login_error.html')
+            return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+
+def logout_view(request):
+    logout(request)
+
 def home(response):
     template = 'dentist/home.html'
     # return render(response, template, {'name':'Testing...'})

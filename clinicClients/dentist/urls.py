@@ -12,7 +12,9 @@ from .views import (
 # app_name = 'clinicClients'
 urlpatterns = [
     # path('', views.home, name='home'),
-    path('', ClientListView.as_view(), name='ls'),
+    # path('', ClientListView.as_view(), name='ls'),
+    path('', views.login_view, name='login'),
+    # path('accounts/login/', auth_views.LoginView.as_view(template_name='myapp/login.html')),
     # path('<int:id>/', views.index, name='index'),
     path('<int:pk>/detail/', AppointmentDetailView.as_view(), name='detail'),
 

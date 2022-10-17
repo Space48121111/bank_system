@@ -2,6 +2,7 @@
 
 {% load bootstrap_tags %}
 
+
 {% block title %} <title>Upcoming Appointments</title> {% endblock title %}
 
 {% block content %}
@@ -16,13 +17,15 @@
       Why not <a href="{% url 'create' %}">schedule one?</a></p>
     {% endif %}
 
-    <table class="table tabel-striped">
+    <table class="table table-hover">
       <thead>
+        <tr>
         <th>#Id/Name</th>
         <th>Memo</th>
         <th>Has Appt</th>
         <th>Schedule Id</th>
         <th>timestamp </th>
+        </tr>
       </thead>
       <tbody>
         {% for appt in object_list %}
@@ -38,8 +41,9 @@
         {% endfor %}
       </tbody>
     </table>
+    <a class='btn btn-danger' href="{% url 'create' %}">NO</a>
 
-    <a class='btn btn-primary' href="{% url 'create' %}">Create</a>
+    <!-- <a class='btn btn-primary' href="{% url 'create' %}">Create</a> -->
   </div>
 </div>
 {% endblock %}

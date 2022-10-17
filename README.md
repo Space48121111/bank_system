@@ -9,6 +9,7 @@
 ![5th-edition](https://github.com/stella-vir/django-appt/blob/master/screenshots/Screen%20Shot%202022-10-14%20at%2021.12.40.png)
 
 # 4th-edition dentist postgres
+![4th-edition-4](https://github.com/stella-vir/django-appt/blob/master/screenshots/Screen%20Shot%202022-10-17%20at%2011.40.25.png)
 ![4th-edition-3](https://github.com/stella-vir/perseverance_bank_system/blob/master/screenshots/Screen%20Shot%202022-10-10%20at%2019.44.22.png)
 ![4th-edition-2](https://github.com/stella-vir/perseverance_bank_system/blob/master/screenshots/Screen%20Shot%202022-10-09%20at%2021.29.22.png)
 ![4th-edition-1](https://github.com/stella-vir/perseverance_bank_system/blob/master/screenshots/Screen%20Shot%202022-10-08%20at%2019.07.54.png)
