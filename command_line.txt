@@ -74,7 +74,7 @@ pip install django-timezone-field
 
 # heroku
 >> touch Procfile # web: gunicorn electric_motor.wsgi
->> pip install gunicorn/django_heroku/python-decouple/dj_database_url
+>> pip install gunicorn/django_heroku/python-decouple/
 >> pip freeze requirements.txt
 settings -> import django_heroku/dj_database_url
         -> from decouple import config
@@ -97,15 +97,15 @@ curl -u 'stella-vir' https://api.github.com/user/repos -d '{"name":"electric-mot
 git remote add origin https://github.com/stella-vir/electric-motor-s.git
 git remote add heroku https://github.com/stella-vir/electric-motor-s.git
 >> git remote
->> git init
->> git add .
->> git commit -m "push heroku"
+
 >> git branch -M main
 >> git push -u origin main
+
 >> git push heroku main
 # heroku buildpacks:set heroku/python
 >> heroku create electric-motor-s --buildpack heroku/python
 
+>> heroku config:set DISABLE_COLLECTSTATIC=1 -a electric-motor-s
 >> heroku keys:add
 >> heroku rename electric-motor-s
 

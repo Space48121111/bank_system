@@ -1,5 +1,7 @@
 # https://www.amazon.com/s?k=electric+motor&ref=nb_sb_noss
-# https://affiliate-program.amazon.com/
+#
+https://affiliate-program.amazon.com/
+# electricmot0c-20
 
 <header style="background-image: url('{% static 'web/coil.jpg' %}')">
 <header class="bg-dark py-5"
