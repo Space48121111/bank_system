@@ -1,0 +1,14 @@
+{% extends './base.html'%}
+
+{% load bootstrap_tags %}
+
+
+{% block title %} <title>Update Appointments</title> {% endblock title %}
+
+{% block content %}
+
+<form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+{% endblock %}

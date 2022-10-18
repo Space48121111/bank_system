@@ -10,13 +10,22 @@
   <div class="col-lg-9">
 
     <div class="page-header">
-      <legend><h1>Appointments</h1></legend>
+      <legend><h1>Hi Appointments S</h1></legend>
     </div>
     {% if not object_list %}
       <p><strong>Nothing to show.</strong>
       Why not <a href="{% url 'create' %}">schedule one?</a></p>
     {% endif %}
 
+    {% if user.is_authenticated %}
+      <li class='nav-item'>
+        <a class='nav-link' href="{% url 'logout' %}">Logout</a>
+      </li>
+    {% else %}
+      <li class='nav-item'>
+        <a class='nav-link' href="{% url 'login' %}">Login</a>
+      </li>
+    {% endif %}
     <table class="table table-hover">
       <thead>
         <tr>

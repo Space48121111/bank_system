@@ -22,8 +22,9 @@
       {{ form|as_bootstrap_horizontal }}
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
-          <a href="#back" class="btn btn-default">Cancel</a>
-          <button type="submit" class="btn btn-primary">
+          <button href="#back" class="btn btn-default">Cancel</a>
+          <button type="submit" class="btn btn-danger">
+          <input type="submit" value="Save">
           {% if not object.pk %}
             Create appointment
           {% else %}

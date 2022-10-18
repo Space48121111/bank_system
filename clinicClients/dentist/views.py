@@ -3,11 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 
 from .models import ClientList, Appointment
-from .forms import CreateClient
+from .forms import CreateClient, UpdateClient, ContactForm
 
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 
+from django.views.generic.edit import FormView
 from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 from django.views.generic.edit import DeleteView
@@ -15,10 +16,73 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 
 from django.contrib.auth import authenticate, login, logout
-
+from django.core.mail import send_mail
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 # Create your views here.
 
+def register_view(request):
+    # template = 'registration/login.html'
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            print('Saved', username, password)
+            # email = form.cleaned_data['email']
+            user = authenticate(request, username=username, password=password)
+            # user1 = User.objects.create_user(username, email, password)
+            # print('User1', user1)
+        # python manage.py createsuperuser --username=joe --email=joe@example.com
+            # u = User.objects.get(__all__)
+        # u.set_password('new password')
+        # u.save()
+            login(request, user)
+            messages.success(request, 'Registration successfully.')
+            # send_mail(
+            #     # subject
+            #     'Hi there',
+            #     # message
+            #     'Whats up.',
+            #     # from
+            #     'stellavir11@gmail.com',
+            #     # to
+            #     ['stellavir11@gmail.com'],
+            #     fail_silently=False,
+            # )
+
+            # user.last_name = 'Lennon'
+            # user.save()
+            context = {
+                'form': form,
+                }
+            return render(request, 'dentist/clientlist_list.html', context)
+
+    else:
+        form = UserCreationForm()
+
+    context = {
+        'form': form,
+        }
+
+    return render(request, 'registration/register.html', context)
+
+class ContactFormView(FormView):
+    template_name = 'contact.html'
+    form_class = ContactForm
+    success_url = '/thanks/'
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        form.send_email()
+        return super().form_valid(form)
+
+
 def login_view(request):
+    # template = 'registration/login.html'
     # username = request.POST['username']
     # handle both post and get
     username = request.POST.get('username')
@@ -28,18 +92,21 @@ def login_view(request):
     if user is not None:
         login(request, user)
         context = {
-            'username':username,
+            'username': username,
+            'password': password,
             }
         # Redirect to a success page.
-        return render(response, 'dentist/appointment.html', context)
+        return render(response, 'dentist/clientlist_list.html', context)
 
     else:
         # Return an 'invalid login' error message.
         if not request.user.is_authenticated:
             # return render(request, 'myapp/login_error.html')
+            messages.success(request, 'Please double check the username and the password.')
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
 
 def logout_view(request):
+    # template = 'registration/logout.html'
     logout(request)
 
 def home(response):
@@ -109,11 +176,17 @@ class AppointmentCreateView(SuccessMessageMixin, CreateView):
     success_message = 'Appointment created successfully.'
 
 class AppointmentUpdateView(SuccessMessageMixin, UpdateView):
+    # template_name = clientlist_update_form.html
     model = ClientList
     # fields = ['name', 'phone_no', 'timing']
+    form_class = UpdateClient
+    template_name_suffix = '_update_form'
 
-    fields = '__all__'
     success_message = 'Appointment updated successfully.'
+
+class AppointmentDeleteView(DeleteView):
+    model = ClientList
+    success_url = reverse_lazy('ls')
 
 def delete(response, id):
     client = get_object_or_404(ClientList, pk=id)
@@ -128,13 +201,6 @@ def delete(response, id):
             'error_message': "This client does not exist."
         }
         return render(response, 'dentist/home.html', context)
-
-
-class AppointmentDeleteView(DeleteView):
-    model = Appointment
-    # fields = ['name', 'phone_no']
-
-    success_url = reverse_lazy('ls')
 
 
 

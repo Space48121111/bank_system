@@ -9,14 +9,24 @@
   <div class="col-lg-9">
 
     <div class="page-header">
-      <legend><h1>Appointments</h1></legend>
+      <legend><h1>Appointments S</h1></legend>
     </div>
     {% if not object_list %}
       <p><strong>No upcoming appointments.</strong>
       Why not <a href="{% url 'create' %}">schedule one?</a></p>
     {% endif %}
 
-    <table class="table tabel-striped">
+    {% if user.is_authenticated %}
+      <li class='nav-item'>
+        <a class='btn btn-primary' href="{% url 'logout' %}">Logout</a>
+      </li>
+    {% else %}
+      <li class='nav-item'>
+        <a class='btn btn-primary' href="{% url 'login' %}">Login</a>
+      </li>
+    {% endif %}
+
+    <table class="table table-striped">
       <thead>
         <th>ID</th>
         <th>Name</th>

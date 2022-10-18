@@ -7,6 +7,10 @@ from .models import ClientList, Appointment
 
 # Create your tests here.
 
+def test_form_accepts_valid_input(user, pass):
+
+
+
 class ClientListModelTests(TestCase):
     def test_appt_recently_with_future_appt(self):
         # future appt -> validate

@@ -20,9 +20,10 @@ class ClientList(models.Model):
 
     def __str__(self):
         return 'Client #{0} - {1}'.format(self.pk, self.name)
+    # def get_absolute_url(self):
+    #     return reverse('detail', args=[str(self.id)])
     def get_absolute_url(self):
-        return reverse('detail', args=[str(self.id)])
-
+        return reverse('detail', kwargs={'pk': self.pk})
     def appt_recently(self):
         now = timezone.now()
         print('now', type(now), now)
