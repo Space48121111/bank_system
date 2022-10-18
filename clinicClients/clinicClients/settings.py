@@ -162,7 +162,7 @@ EMAIL_PORT = 587
 # username:
 EMAIL_HOST_USER = 'stellavir11@gmail.com'
 # password:
-EMAIL_HOST_PASSWORD = 'Aispacevir11'
+EMAIL_HOST_PASSWORD = 'aispacevir11'
 # use_tls:
 EMAIL_USE_TLS = True
 # use_ssl: EMAIL_USE_SSL
