@@ -11,19 +11,19 @@
     <div class="page-header">
       <legend><h1>Appointments S</h1></legend>
     </div>
-    {% if not object_list %}
+    {% if not object %}
       <p><strong>No upcoming appointments.</strong>
       Why not <a href="{% url 'create' %}">schedule one?</a></p>
     {% endif %}
 
     {% if user.is_authenticated %}
-      <ul class='nav-item' >
+      <ul class='nav-item'>
         <a style='float: right' class='btn btn-primary' href="{% url 'logout' %}">Logout</a>
-      </li>
+      </ul>
     {% else %}
       <ul class='nav-item'>
         <a style='float: right' class='btn btn-primary' href="{% url 'login' %}">Login</a>
-      </li>
+      </ul>
     {% endif %}
 
     <table class="table table-striped">
@@ -36,38 +36,18 @@
         <th>Timing </th>
       </thead>
       <tbody>
-        {% for client in object_list %}
         <tr>
-          <td><a href="{{ client.get_absolute_url }} ">{{ client.pk }}</a></td>
-          <td>{{ client.name }}</td>
-          <td>{{ client.phone_no }}</td>
-          <td>{{ client.email }}</td>
-          <td>{{ client.appt_date }}</td>
-          <td>{{ client.timing }}</td>
-          <td>
-            <a class="btn btn-xs btn-primary" href="{% url 'update' client.pk %}">Update</a>
-            <a class="btn btn-xs btn-danger" href="{% url 'del' client.pk %}">Del</a>
-
-          </td>
+          <td>{{ object.pk }}</a></td>
+          <td>{{ object.name }}</td>
+          <td>{{ object.phone_no }}</td>
+          <td>{{ object.email }}</td>
+          <td>{{ object.appt_date }}</td>
+          <td>{{ object.timing }}</td>
         </tr>
-        {% endfor %}
       </tbody>
     </table>
 
-    <a class='btn btn-primary' href="{% url 'create' %}">Create</a>
+    <a class='btn btn-primary' href="{% url 'ls' %}">See All Lists</a>
   </div>
 </div>
-{% endblock %}
-
-
-
-{% block page_css %}
-  <link rel="stylesheet" href="
-  " />
-{% endblock %}
-
-{% block page_js %}
-  <script src="">
-
-  </script>
 {% endblock %}

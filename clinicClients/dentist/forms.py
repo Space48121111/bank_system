@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import ClientList, Appointment
+from .models import ClientList, Account
 
 
 class ContactForm(forms.Form):
@@ -48,8 +48,7 @@ class CreateClient(ModelForm):
 class UpdateClient(ModelForm):
     class Meta:
         model = ClientList
-        # name placeholder
-        fields = ['name']
+        fields = '__all__'
         widgets = {
             'appt_date': DateInput(),
             'timing': TimeInput(),

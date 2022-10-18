@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 
-from .models import ClientList, Appointment
+from .models import ClientList, Account
 from .forms import CreateClient, UpdateClient, ContactForm
 
 from django.views.generic.list import ListView
@@ -109,6 +109,37 @@ def logout_view(request):
     # template = 'registration/logout.html'
     logout(request)
 
+
+class ClientListView(ListView):
+    # template = 'dentist/clientlist_list.html'
+    model = ClientList
+
+class AppointmentDetailView(DetailView):
+    # template = 'dentist/appointment.html'
+    model = ClientList
+
+class AppointmentCreateView(SuccessMessageMixin, CreateView):
+    # template = 'dentist/appointment_form.html'
+
+    model = ClientList
+    form_class = CreateClient
+
+    success_message = 'Appointment created successfully.'
+
+class AppointmentUpdateView(SuccessMessageMixin, UpdateView):
+    # template_name = clientlist_update_form.html
+    model = ClientList
+    # fields = ['name', 'phone_no', 'timing']
+    form_class = UpdateClient
+    # template_name_suffix = '_update_form'
+
+    success_message = 'Appointment updated successfully.'
+
+class AppointmentDeleteView(DeleteView):
+    model = ClientList
+    success_url = reverse_lazy('ls')
+
+
 def home(response):
     template = 'dentist/home.html'
     # return render(response, template, {'name':'Testing...'})
@@ -120,10 +151,6 @@ def home(response):
         }
     return render(response, template, context)
 
-
-class ClientListView(ListView):
-    # template = 'dentist/clientlist_list.html'
-    model = ClientList
 
 def index(response, id):
     template = 'dentist/index.html'
@@ -137,10 +164,6 @@ def index(response, id):
         }
     return render(response, template, context)
     # {'name':ls.name}
-
-class AppointmentDetailView(DetailView):
-    template = 'dentist/appointment.html'
-    model = Appointment
 
 
 def create(response):
@@ -167,26 +190,6 @@ def create(response):
         }
     return render(response, template, context)
 
-class AppointmentCreateView(SuccessMessageMixin, CreateView):
-    # template = 'dentist/appointment_form.html'
-
-    model = ClientList
-    form_class = CreateClient
-
-    success_message = 'Appointment created successfully.'
-
-class AppointmentUpdateView(SuccessMessageMixin, UpdateView):
-    # template_name = clientlist_update_form.html
-    model = ClientList
-    # fields = ['name', 'phone_no', 'timing']
-    form_class = UpdateClient
-    template_name_suffix = '_update_form'
-
-    success_message = 'Appointment updated successfully.'
-
-class AppointmentDeleteView(DeleteView):
-    model = ClientList
-    success_url = reverse_lazy('ls')
 
 def delete(response, id):
     client = get_object_or_404(ClientList, pk=id)

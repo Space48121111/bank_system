@@ -17,6 +17,9 @@ class ClientList(models.Model):
     timing = models.TimeField('Your appt time is ', default='10:00')
     time_zone = TimeZoneField(default='Europe/Helsinki')
 
+    schedule_id = models.CharField(max_length=100, blank=True, editable=False)
+    # default='2023-10-25 14:30:59'
+    timestamp = models.DateTimeField('You made appt at ', auto_now_add=True)
 
     def __str__(self):
         return 'Client #{0} - {1}'.format(self.pk, self.name)
@@ -24,35 +27,34 @@ class ClientList(models.Model):
     #     return reverse('detail', args=[str(self.id)])
     def get_absolute_url(self):
         return reverse('detail', kwargs={'pk': self.pk})
+
     def appt_recently(self):
         now = timezone.now()
         print('now', type(now), now)
         print('self.appt_date', self.appt_date)
         return now <= self.appt_date <= now + datetime.timedelta(days=5)
 
-
-
-class Appointment(models.Model):
-    clientlist = models.ForeignKey(ClientList, on_delete=models.CASCADE)
-    memo = models.CharField(max_length=200, blank=True)
-    has_appt = models.BooleanField(default=True)
-    schedule_id = models.CharField(max_length=100, blank=True, editable=False)
-    timestamp = models.DateTimeField('You made appt at ', auto_now_add=True)
-
-    def __str__(self):
-        # self.appointment_set.get(pk)
-        return 'Appointment #{0} - {1}'.format(self.pk, self.memo)
-
     def save(self, *args, **kwargs):
         if self.schedule_id:
             self.cancel()
 
         # override the default
-        super(Appointment, self).save(*arg, **kwargs)
+        super(ClientList, self).save(*args, **kwargs)
 
     def cancel(self):
         # redis
         pass
+
+
+class Account(models.Model):
+    clientlist = models.ForeignKey(ClientList, on_delete=models.CASCADE)
+    password = models.CharField(max_length=200, blank=True)
+    has_appt = models.BooleanField(default=True)
+
+    def __str__(self):
+        # self.appointment_set.get(pk)
+        return 'Appointment #{0} - {1}'.format(self.pk, self.memo)
+
 
 
 
