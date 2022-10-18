@@ -1,0 +1,23 @@
+{% extends '../dentist/base.html'%}
+
+{% load bootstrap_tags %}
+
+
+{% block title %} <title>Register</title> {% endblock title %}
+
+{% block content %}
+<h1>User</h1>
+
+{% if not entries%}
+  <p><strong>No users.</strong>
+  Why not <a href="{% url 'register' %}">create one?</a></p>
+{% endif %}
+
+{% for entry in entries %}
+    {{ entry.username }}
+    <br>
+    {{ entry.password }}
+    <br><br>
+{% endfor %}
+
+{% endblock %}

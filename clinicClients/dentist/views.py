@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 
-from .models import ClientList, Account
+from .models import ClientList, Account, getUser
 from .forms import CreateClient, UpdateClient, ContactForm
 
 from django.views.generic.list import ListView
@@ -20,10 +20,21 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 
+def get_user(request):
+    template = 'registration/user.html'
+    entries = User.objects.all()
+    context = {
+    "entries": entries,
+    }
+    return render(request, template, context)
+
 def register_view(request):
-    # template = 'registration/login.html'
+    template = 'registration/register.html'
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -31,43 +42,31 @@ def register_view(request):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
             print('Saved', username, password)
-            # email = form.cleaned_data['email']
             user = authenticate(request, username=username, password=password)
             # user1 = User.objects.create_user(username, email, password)
             # print('User1', user1)
-        # python manage.py createsuperuser --username=joe --email=joe@example.com
-            # u = User.objects.get(__all__)
-        # u.set_password('new password')
-        # u.save()
+            # python manage.py createsuperuser --username=joe --email=joe@example.com
+            u = User.objects.all()
+            # u.set_password('new password')
+            print('user', u)
             login(request, user)
             messages.success(request, 'Registration successfully.')
-            # send_mail(
-            #     # subject
-            #     'Hi there',
-            #     # message
-            #     'Whats up.',
-            #     # from
-            #     'stellavir11@gmail.com',
-            #     # to
-            #     ['stellavir11@gmail.com'],
-            #     fail_silently=False,
-            # )
 
             # user.last_name = 'Lennon'
             # user.save()
-            context = {
-                'form': form,
-                }
-            return render(request, 'dentist/clientlist_list.html', context)
+            g = Account(username=username, password=password)
+            print('acct', g.pk, g)
+            g.save()
+            # going back two directories ../
+            # ('../%i' %g.id) ('/')
+            return HttpResponseRedirect('/')
 
     else:
         form = UserCreationForm()
-
     context = {
         'form': form,
         }
-
-    return render(request, 'registration/register.html', context)
+    return render(request, template, context)
 
 class ContactFormView(FormView):
     template_name = 'contact.html'
@@ -81,8 +80,12 @@ class ContactFormView(FormView):
         return super().form_valid(form)
 
 
-def login_view(request):
-    # template = 'registration/login.html'
+# class MyView(LoginRequiredMixin, View):
+#     login_url = '/login/'
+#     redirect_field_name = 'redirect_to'
+
+def login_view(request, pk):
+    template = 'registration/login.html'
     # username = request.POST['username']
     # handle both post and get
     username = request.POST.get('username')
@@ -96,7 +99,7 @@ def login_view(request):
             'password': password,
             }
         # Redirect to a success page.
-        return render(response, 'dentist/clientlist_list.html', context)
+        return HttpResponseRedirect(request, 'dentist/clientlist_list.html', context)
 
     else:
         # Return an 'invalid login' error message.
@@ -104,20 +107,27 @@ def login_view(request):
             # return render(request, 'myapp/login_error.html')
             messages.success(request, 'Please double check the username and the password.')
             return redirect('%s?next=%s' % (settings.LOGIN_URL, request.path))
+    context = {
+        'username': username,
+        'password': password,
+        }
+    return render(request, template, context)
 
 def logout_view(request):
-    # template = 'registration/logout.html'
     logout(request)
+    return render(request, 'registration/logout.html', {})
 
-
+# @login_required(login_url='/accounts/login/')
 class ClientListView(ListView):
     # template = 'dentist/clientlist_list.html'
     model = ClientList
 
+# @login_required(redirect_field_name='my_redirect_field')
 class AppointmentDetailView(DetailView):
     # template = 'dentist/appointment.html'
     model = ClientList
 
+# @login_required
 class AppointmentCreateView(SuccessMessageMixin, CreateView):
     # template = 'dentist/appointment_form.html'
 
@@ -126,6 +136,7 @@ class AppointmentCreateView(SuccessMessageMixin, CreateView):
 
     success_message = 'Appointment created successfully.'
 
+# @login_required
 class AppointmentUpdateView(SuccessMessageMixin, UpdateView):
     # template_name = clientlist_update_form.html
     model = ClientList
@@ -135,6 +146,7 @@ class AppointmentUpdateView(SuccessMessageMixin, UpdateView):
 
     success_message = 'Appointment updated successfully.'
 
+# @login_required
 class AppointmentDeleteView(DeleteView):
     model = ClientList
     success_url = reverse_lazy('ls')
@@ -151,6 +163,32 @@ def home(response):
         }
     return render(response, template, context)
 
+def create(response):
+    template = 'dentist/create.html'
+    if response.method == 'POST':
+        # dict: id, attr
+        form = CreateClient(response.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            phone_no = form.cleaned_data['phone_no']
+            email = form.cleaned_data['email']
+            appt = form.cleaned_data['appt']
+            timing = form.cleaned_data['timing']
+            # has_appointment = form.cleaned_data['has_appointment']
+            g = ClientList(name=name)
+            print(g.id, g)
+            g.save()
+            m = ClientList(pk=g.id).client_set.create(phone_no=phone_no, email=email, timing=timing)
+            print(m)
+            m.save()
+        # going back two directories ../
+        return HttpResponseRedirect('../%i' %g.id)
+    else:
+        form = CreateClient()
+    context = {
+        'form':form
+        }
+    return render(response, template, context)
 
 def index(response, id):
     template = 'dentist/index.html'
@@ -166,31 +204,6 @@ def index(response, id):
     # {'name':ls.name}
 
 
-def create(response):
-    template = 'dentist/create.html'
-    if response.method == 'POST':
-        # dict: id, attr
-        form = CreateClient(response.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            memo = form.cleaned_data['memo']
-            has_appointment = form.cleaned_data['has_appointment']
-            g = ClientList(name=name)
-            print(g.id, g)
-            g.save()
-            m = ClientList(pk=g.id).client_set.create(memo=memo, has_appointment=has_appointment)
-            print(m)
-            m.save()
-        # going back two directories ../
-        return HttpResponseRedirect('../%i' %g.id)
-    else:
-        form = CreateClient()
-    context = {
-        'form':form
-        }
-    return render(response, template, context)
-
-
 def delete(response, id):
     client = get_object_or_404(ClientList, pk=id)
     print(client)
@@ -203,7 +216,7 @@ def delete(response, id):
             'client': client,
             'error_message': "This client does not exist."
         }
-        return render(response, 'dentist/home.html', context)
+        return render(response, 'dentist/delete.html', context)
 
 
 

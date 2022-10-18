@@ -7,14 +7,15 @@ from .views import (
     AppointmentUpdateView,
     AppointmentDeleteView,
 )
-
+from django.contrib.auth import views as auth_views
 
 # app_name = 'clinicClients'
 urlpatterns = [
-    path('login/', views.login_view, name='login'),
-    # path('accounts/login/', auth_views.LoginView.as_view(template_name='myapp/login.html')),
+    # path('<int:pk>/login/', views.login_view, name='login'),
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='Registration/login.html')),
     path('logout/', views.logout_view, name='logout'),
     path('register/', views.register_view, name='register'),
+    path('user/', views.get_user, name='user'),
 
     # clientlist_list.html
     path('', ClientListView.as_view(), name='ls'),

@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(blank=True, default='password1', max_length=200)),
                 ('has_appt', models.BooleanField(default=True)),
                 ('timestamp', models.DateTimeField(auto_now_add=True, verbose_name='You made appt at ')),
-                ('client', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='dentist.clientlist')),
+                ('client', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='test.clientlist')),
             ],
         ),
     ]

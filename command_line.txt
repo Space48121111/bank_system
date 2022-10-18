@@ -13,11 +13,11 @@ Automating processes
 python -m django --version
 
 >>
-django-admin startproject clinicClients
+django-admin startproject testMigri
 # auto create folders
 >> cd clinicClients
 >>
-python manage.py startapp dentist
+python manage.py startapp test
 # settings INSTALLED_APPS, AppnameConfig
 # templates # databases, TIME_ZONE
 

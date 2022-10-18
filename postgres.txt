@@ -25,15 +25,29 @@ config PATH/command line tool: >>
 sudo mkdir -p /etc/paths.d && echo /Applications/Postgres.app/Contents/Versions/latest/bin | sudo tee /etc/paths.d/postgresapp
 
 >> psql postgres
->> psql -U stella -d dentistDB -h localhost
+>> psql -U stella -d resetdb -h localhost
 
 #reset zsh >>
 PATH=/bin:/usr/bin:/usr/local/bin:${PATH}
 export PATH
 
 >> \l
+>> DROP database dentistDB;
+CREATE database resetdb;
+CREATE database resetdb WITH Owner stella;
+DROP SCHEMA public CASCADE;
+
+>> psql -d resetdb;
 >> \dt
 >> SELECT * FROM dentist_clientlist;
+# SELECT * FROM dentist_account;
+>> DROP TABLE dentist_clientlist;
+CREATE TABLE dentist_clientlist;
+>> SELECT * FROM django_migrations;
+>> DROP TABLE django_migrations;
+
+>> DELETE FROM django_migrations WHERE app='dentist';
+
 >> \dt+
 >> SELECT * FROM dentist_clientlist WHERE schemaname != 'pg_catalog' AND
 schemaname != 'information_schema';

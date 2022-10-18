@@ -1,0 +1,16 @@
+{% extends '../dentist/base.html'%}
+
+{% load bootstrap_tags %}
+
+
+{% block title %} <title>Log In</title> {% endblock title %}
+
+{% block content %}
+
+  <h1>Logged out!</h1>
+  <br><br>
+  <a href="{% url 'login'%}" type="submit" class='btn btn-primary'>Login Again</a>
+  <br>
+  <a href="{% url 'register' %}" type="submit" value="" class='btn btn-danger'>Signup</a>
+
+{% endblock %}

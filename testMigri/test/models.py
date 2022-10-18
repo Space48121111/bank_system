@@ -1,9 +1,9 @@
+
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from timezone_field import TimeZoneField
 import datetime
-from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -49,21 +49,18 @@ class ClientList(models.Model):
 
 class Account(models.Model):
     # account_set
-    # client = models.ForeignKey(ClientList, on_delete=models.CASCADE)
+    client = models.ForeignKey(ClientList, on_delete=models.CASCADE)
     username = models.CharField(max_length=200, blank=True, default='user1')
     password = models.CharField(max_length=200, blank=True, default='password1')
     has_appt = models.BooleanField(default=True)
     # default='2023-10-25 14:30:59' auto_now_add=True
-    timestamp = models.DateTimeField('You created acct at ', auto_now_add=True)
+    timestamp = models.DateTimeField('You made appt at ', auto_now_add=True)
 
     def __str__(self):
         # self.appointment_set.get(pk)
-        return 'Account #{0} - {1}'.format(self.pk, self.username)
+        return 'Appointment #{0} - {1}'.format(self.pk, self.username)
 
-# User.objects.all()
-class getUser(models.Model):
-    # an unique key for each user
-    user = models.ForeignKey(User, on_delete=models.CASCADE) # instead of user_id = IntegerField()
+
 
 
 

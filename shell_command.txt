@@ -11,6 +11,14 @@ for p in Balance.objects.raw('SELECT * FROM perseverance_balance'):
 python manage.py shell
 >>
 from perseverance.models import Customer, Balance
+from dentist.models import ClientList, Account
+
+>>
+ClientList.objects.all()
+
+a = ClientList(pk=6).account_set.create(client_id=6, username="user1", password="password1")
+ClientList(pk=6).account_set.all()
+c = ClientList.objects.get(pk=6)
 
 >> from django.utils imort timezone
 >> c1 = Customer(customer_text='Bob', pub_date=timezone.now())
